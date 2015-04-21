@@ -74,23 +74,24 @@ then
 	# - DB_USER
 	# - DB_PASS
 	
+
 	# is a mysql database linked?
 	# requires that the mysql containers have exposed
-	# port 3306 respectively.	
-	if [ -n "${DATABSE_PORT_3306_TCP_ADDR}" ]
+	# port 3306 respectively.
+	if [ -n "${DATABASE_PORT_3306_TCP_ADDR}" ]
 	then
+		echo "Use linked DB container"
 		DB_TYPE=mysql
-		DB_HOST=${DB_HOST:-${DATABSE_PORT_3306_TCP_ADDR}:${DATABSE_PORT_3306_TCP_PORT}}
+		DB_HOST=${DB_HOST:-${DATABASE_PORT_3306_TCP_ADDR}:${DATABASE_PORT_3306_TCP_PORT}}
 		DB_USER=${DB_USER:-root}
-		DB_PASS=${DB_PASS:-${DATABSE_ENV_MYSQL_ROOT_PASSWORD}}
-		DB_NAME=${DB_NAME:-${DATABSE_NAME}}
+		DB_PASS=${DB_PASS:-${DATABASE_ENV_MYSQL_ROOT_PASSWORD}}
 	fi
 		
 	DB_TYPE=${DB_TYPE:-derby}
 	if [ "$DB_TYPE" == "mysql"  ]
 	then
 		sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
-		sed 's/{{DB_NAME}}/'"${DB_NAME:-archiva_users}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
+		sed 's,{{DB_NAME}},'"${DB_NAME:-archiva_users}"',' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
 		sed 's/{{DB_USER}}/'"${DB_USER}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
 		sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
 		mv ${JETTY_CONF_PATH}/JETTY_DB_CONF /tmp/.JETTY_DB_CONF
@@ -111,7 +112,7 @@ then
 	# - SSL_ENABLED
 	# - KEYSTORE_PATH
 	# - STORE_AND_CERT_PASS
-	if [ $SSL_ENABLED == true ]
+	if [ "$SSL_ENABLED" = true ]
 	then
 		KEYSTORE_PATH=${KEYSTORE_PATH:-${DATA_PATH}/ssl/keystore}
 		STORE_AND_CERT_PASS=${STORE_AND_CERT_PASS:-changeit}

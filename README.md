@@ -65,7 +65,7 @@ Copy the custom keystore in data mount under `ssl/keystoer`. The locations can b
 
 #### (3) Use a MYSQL db, with a linked container
 
-The example below creates a archiva container with the linked mysql db
+The example below creates a archiva container with the linked mysql db. Please make sure `archiva_user` database created first, this database name can be changed using the `DB_NAME`.
 
 ```
 docker run --name archiva -h archiva -p 443:8443\
@@ -74,7 +74,7 @@ docker run --name archiva -h archiva -p 443:8443\
 
 #### (4) Use a MYSQL db, with an external host
 
-The example below creates a archiva container using an external db
+The example below creates a archiva container using an external db. Please make sure `archiva_user` database created first, this database name can be changed using the `DB_NAME`.
 
 ```
 docker run --name archiva -h archiva -p 443:8443\
