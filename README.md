@@ -1,6 +1,6 @@
-# archiva
+# Archiva
 
-An archiva 2.1.1 container designed for a simple standalone deployment. Key features are:
+An apache archiva 2.1.1 container designed for a simple standalone deployment. Key features are:
 
 1. The configuration/data is truly externalized, allowing container replacement/upgrading (`/archiva-data`)
 2. Configurable HTTPS support is included, with the ability to assign custom keystore/truststore
@@ -22,7 +22,7 @@ The command below will setup a running archiva container with externalized data/
 
 The following parameters are used every time the container is replaced, regardless of the externalized configurations.
 
-* `SSL_ENABLED`: Configure HTTPS support. Default is `true` if `SSL_CERT` and `SSL_KEY` are defined, otherwise `false`.
+* `SSL_ENABLED`: Configure HTTPS support or not.
 * `KEYSTORE_PATH`: The keystore path for jetty HTTPS certificate to use. Default is `/archiva-data/ssl/keystore`.
 * `STORE_AND_CERT_PASS`: The keystore and certificate password to use. Default is `changeit`.
 
@@ -59,7 +59,7 @@ Make sure /somepath/archiva_mnt exists
 Copy the custom keystore in data mount under `ssl/keystoer`. The locations can be changed using the `KEYSTORE_PATH`.
 
 ```
- docker run --name archiva -h archiva -d -p 443:443\
+ docker run --name archiva -h archiva -d -p 443:8443\
   -e SSL_ENABLED=true -v /somepath/archiva_mnt:/archiva-data xetusoss/archiva
 ```
 
@@ -68,9 +68,8 @@ Copy the custom keystore in data mount under `ssl/keystoer`. The locations can b
 The example below creates a archiva container with the linked mysql db
 
 ```
-docker run --name archiva -h archiva -p 443:443\
-  -v /somepath/archiva_mnt:/archiva-data --link mysql:acdb -e DB_TYPE="mysql"\
-  -e DB_USER="SOMEUSER" -e DB_PASS="SOMEPASS" -e SSL_ENABLED=true xetusoss/archiva
+docker run --name archiva -h archiva -p 443:8443\
+  -v /somepath/archiva_mnt:/archiva-data --link mysql:database -e SSL_ENABLED=true xetusoss/archiva
 ```
 
 #### (4) Use a MYSQL db, with an external host
@@ -78,7 +77,7 @@ docker run --name archiva -h archiva -p 443:443\
 The example below creates a archiva container using an external db
 
 ```
-docker run --name archiva -h archiva -p 443:443\
+docker run --name archiva -h archiva -p 443:8443\
   -v /somepath/archiva_mnt:/archiva-data -e DB_TYPE="mysql"\
   -e DB_HOST="db.example.com:3306"-e DB_USER="SOMEUSER"\
   -e DB_PASS="SOMEPASS" -e SSL_ENABLED=true xetusoss/archiva
