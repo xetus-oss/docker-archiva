@@ -4,13 +4,18 @@
 # Archiva container bootstrap. See the readme for usage.
 #
 source /data_dirs.env
-FIRST_TIME_INSTALLATION=false
+JETTY_NEED_CONFIG=false
 DATA_PATH=/archiva-data
 JETTY_CONF_PATH=/jetty_conf
 
 
 mkdir -p ${DATA_PATH}/temp
 chown archiva:archiva ${DATA_PATH}/temp
+
+if [ ! -e "${DATA_PATH}/conf/jetty.xml" ]
+then
+	JETTY_NEED_CONFIG=true
+fi
 
 cd /opt/archiva
 for datadir in "${DATA_DIRS[@]}"; do
@@ -24,7 +29,6 @@ for datadir in "${DATA_DIRS[@]}"; do
       mkdir -p ${DATA_PATH}/${datadir}
     fi
     chown archiva:archiva ${DATA_PATH}/${datadir}
-    FIRST_TIME_INSTALLATION=true
   fi
 done
 
@@ -62,8 +66,9 @@ DERBY_DS_JETTY_CONF='<New id="users" class="org.eclipse.jetty.plus.jndi.Resource
 # - DB settings
 # - HTTPS settings
 #
-if [ $FIRST_TIME_INSTALLATION == true ]
+if [ $JETTY_NEED_CONFIG == true ]
 then
+	cp -f ${JETTY_CONF_PATH}/jetty.xml /tmp/jetty.xml
 	#
 	# DB configuration 
 	#
@@ -90,19 +95,19 @@ then
 	DB_TYPE=${DB_TYPE:-derby}
 	if [ "$DB_TYPE" == "mysql"  ]
 	then
-		sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
-		sed 's,{{DB_NAME}},'"${DB_NAME:-archiva_users}"',' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
-		sed 's/{{DB_USER}}/'"${DB_USER}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
-		sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' -i ${JETTY_CONF_PATH}/JETTY_DB_CONF
-		mv ${JETTY_CONF_PATH}/JETTY_DB_CONF /tmp/.JETTY_DB_CONF
+		cp -f ${JETTY_CONF_PATH}/JETTY_DB_CONF /tmp/.JETTY_DB_CONF
+		sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' -i /tmp/.JETTY_DB_CONF
+		sed 's,{{DB_NAME}},'"${DB_NAME:-archiva_users}"',' -i /tmp/.JETTY_DB_CONF
+		sed 's/{{DB_USER}}/'"${DB_USER}"'/' -i /tmp/.JETTY_DB_CONF
+		sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' -i /tmp/.JETTY_DB_CONF
 	fi
 	if [ "$DB_TYPE" == "derby"  ]
 	then
 		echo $DERBY_DS_JETTY_CONF > /tmp/.JETTY_DB_CONF
 	fi
 	cd /tmp
-	sed -i '/{{JETTY_DB_CONF}}/r .JETTY_DB_CONF' ${JETTY_CONF_PATH}/jetty.xml
-	sed -i '/{{JETTY_DB_CONF}}/d' ${JETTY_CONF_PATH}/jetty.xml
+	sed -i '/{{JETTY_DB_CONF}}/r .JETTY_DB_CONF' jetty.xml
+	sed -i '/{{JETTY_DB_CONF}}/d' jetty.xml
 	rm /tmp/.JETTY_DB_CONF
 
 	#
@@ -133,13 +138,15 @@ then
 				-keystore $KEYSTORE_PATH \
 				-storepass "$STORE_AND_CERT_PASS"
 		fi
-		sed 's,{{KEYSTORE_PATH}},'"${KEYSTORE_PATH}"',' -i ${JETTY_CONF_PATH}/HTTPS_JETTY_CONF
-		sed 's/{{STORE_AND_CERT_PASS}}/'"${STORE_AND_CERT_PASS}"'/' -i ${JETTY_CONF_PATH}/HTTPS_JETTY_CONF
-		cd ${JETTY_CONF_PATH}
-		sed -i '/{{HTTPS_JETTY_CONF}}/r HTTPS_JETTY_CONF' ${JETTY_CONF_PATH}/jetty.xml
-		sed -i '/{{HTTPS_JETTY_CONF}}/d' ${JETTY_CONF_PATH}/jetty.xml
+		cp -f ${JETTY_CONF_PATH}/HTTPS_JETTY_CONF /tmp/.HTTPS_JETTY_CONF
+		sed 's,{{KEYSTORE_PATH}},'"${KEYSTORE_PATH}"',' -i /tmp/.HTTPS_JETTY_CONF
+		sed 's/{{STORE_AND_CERT_PASS}}/'"${STORE_AND_CERT_PASS}"'/' -i /tmp/.HTTPS_JETTY_CONF
+		cd /tmp
+		sed -i '/{{HTTPS_JETTY_CONF}}/r .HTTPS_JETTY_CONF' jetty.xml
+		rm /tmp/.HTTPS_JETTY_CONF
 	fi
-	mv ${JETTY_CONF_PATH}/jetty.xml ${DATA_PATH}/conf/jetty.xml
+	sed -i '/{{HTTPS_JETTY_CONF}}/d' jetty.xml
+	mv jetty.xml ${DATA_PATH}/conf/jetty.xml
 
 fi
 
