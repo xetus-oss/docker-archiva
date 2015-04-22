@@ -3,7 +3,7 @@
   <Arg>
     <New class="org.apache.tomcat.jdbc.pool.DataSource">
       <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
-      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{DB_NAME}}</Set>
+      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{USERS_DB_NAME}}</Set>
       <Set name="username">{{DB_USER}}</Set>
       <Set name="password">{{DB_PASS}}</Set>
       <Set name="maxActive">30</Set>
@@ -24,7 +24,39 @@
   <Arg>
     <New class="org.apache.tomcat.jdbc.pool.DataSource">
       <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
-      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{DB_NAME}}</Set>
+      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{USERS_DB_NAME}}</Set>
+      <Set name="username">{{DB_USER}}</Set>
+      <Set name="password">{{DB_PASS}}</Set>
+    </New>
+  </Arg>
+</New>
+<New id="archiva" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg>jdbc/archiva</Arg>
+  <Arg>
+    <New class="org.apache.tomcat.jdbc.pool.DataSource">
+      <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
+      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{ARCHIVA_DB_NAME}}</Set>
+      <Set name="username">{{DB_USER}}</Set>
+      <Set name="password">{{DB_PASS}}</Set>
+      <Set name="maxActive">30</Set>
+      <Set name="maxWait">10000</Set>
+      <Set name="removeAbandoned">true</Set>
+      <Set name="logAbandoned">true</Set>
+      <Set name="removeAbandonedTimeout">10000</Set>
+      <Set name="initialSize">15</Set>
+      <Set name="testOnBorrow">true</Set>
+      <!-- very rigourous sql query validation -->
+      <Set name="validationQuery">select 1</Set>
+    </New>
+  </Arg>
+</New>
+
+<New id="archivaShutdown" class="org.eclipse.jetty.plus.jndi.Resource">
+  <Arg>jdbc/archivaShutdown</Arg>
+  <Arg>
+    <New class="org.apache.tomcat.jdbc.pool.DataSource">
+      <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
+      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{ARCHIVA_DB_NAME}}</Set>
       <Set name="username">{{DB_USER}}</Set>
       <Set name="password">{{DB_PASS}}</Set>
     </New>

@@ -75,7 +75,8 @@ then
 	# Varaibles:
 	# - DB_TYPE
 	# - DB_HOST
-	# - DB_NAME
+	# - USERS_DB_NAME
+	# - ARCHIVA_DB_NAME
 	# - DB_USER
 	# - DB_PASS
 	
@@ -97,7 +98,8 @@ then
 	then
 		cp -f ${JETTY_CONF_PATH}/JETTY_DB_CONF /tmp/.JETTY_DB_CONF
 		sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' -i /tmp/.JETTY_DB_CONF
-		sed 's,{{DB_NAME}},'"${DB_NAME:-archiva_users}"',' -i /tmp/.JETTY_DB_CONF
+		sed 's,{{USERS_DB_NAME}},'"${USERS_DB_NAME:-archiva_users}"',' -i /tmp/.JETTY_DB_CONF
+		sed 's,{{ARCHIVA_DB_NAME}},'"${ARCHIVA_DB_NAME:-archiva_repository}"',' -i /tmp/.JETTY_DB_CONF
 		sed 's/{{DB_USER}}/'"${DB_USER}"'/' -i /tmp/.JETTY_DB_CONF
 		sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' -i /tmp/.JETTY_DB_CONF
 	fi
