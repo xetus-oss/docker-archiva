@@ -18,21 +18,16 @@ The command below will setup a running archiva container with externalized data/
 
 ## Available Configuration Parameters
 
-### Container parameters
+### Initialization parameters
 
-The following parameters are used every time the container is replaced, regardless of the externalized configurations.
+The following parameters are only used to setup the initial configuration. Once the configuration has been established, theses are not used.
+
+The goal here is not to support every parameter, just those parameters
+that you really would like to have in place before you get the the UI.
 
 * `SSL_ENABLED`: Configure HTTPS support or not.
 * `KEYSTORE_PATH`: The keystore path for jetty HTTPS certificate to use. Default is `/archiva-data/ssl/keystore`.
 * `STORE_AND_CERT_PASS`: The keystore and certificate password to use. Default is `changeit`.
-
-### Initialization parameters
-
-The following parameters are only used to setup the initial configuration. Once the configuration has been established, theses are not used. All the parameters here map to configuration values in the archiva config.php.
-
-See the [archiva documentation](https://doc.archiva.org/server/8.1/admin_manual/configuration_server/config_sample_php_parameters.html) for what each parameter does. The goal here is not to support every parameter, just those parameters
-that you really would like to have in place before you get the the UI.
-
 * `DB_TYPE` --> db type
     * default: derby
 * `DB_NAME` --> db name
