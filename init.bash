@@ -18,5 +18,5 @@ for datadir in "${DATA_DIRS[@]}"; do
   ln -s /archiva-data/${datadir#/*} ${datadir}
 done
 
-
-
+chown -R archiva:archiva /archiva-data/
+chown archiva:archiva /etc/ssl/certs/java/cacerts

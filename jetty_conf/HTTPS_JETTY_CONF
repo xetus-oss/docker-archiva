@@ -5,8 +5,6 @@
           <Set name="port"><SystemProperty name="jetty.port" default="8443"/></Set>
           <Set name="keystore">{{KEYSTORE_PATH}}</Set>
           <Set name="keyPassword">{{STORE_AND_CERT_PASS}}</Set>
-          <Set name="truststore">{{KEYSTORE_PATH}}</Set>
-          <Set name="trustPassword">{{STORE_AND_CERT_PASS}}</Set>
           <Set name="maxIdleTime">30000</Set>
           <Set name="Acceptors">2</Set>
           <Set name="statsOn">false</Set>
