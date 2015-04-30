@@ -116,7 +116,11 @@ then
   # Varaibles:
   # - SSL_ENABLED
   # - KEYSTORE_PATH
-  # - STORE_AND_CERT_PASS
+  # - STORE_AND_CERT_PASS 
+  # - CERT_ALIAS
+  # - CA_CERT
+  # - CA_CERTS_DIR 
+  
   if [ "$SSL_ENABLED" = true ]
   then
     KEYSTORE_PATH=${KEYSTORE_PATH:-${DATA_PATH}/ssl/keystore}
@@ -124,10 +128,11 @@ then
     if [ ! -e "$KEYSTORE_PATH" ]
       then
       echo "Generating self-signed keystore and certificate for HTTPS support(Dst: $KEYSTORE_PATH)"
-      mkdir -p ${DATA_PATH}/ssl/
+      mkdir -p ${DATA_PATH}/ssl/ 
+      CERT_ALIAS=${CERT_ALIAS:-archiva}
       keytool -genkey -noprompt -trustcacerts \
         -keyalg RSA \
-        -alias "archiva" \
+        -alias "$CERT_ALIAS" \
         -dname "CN=${HOSTNAME}, OU=Archiva, O=Archiva, L=Unknown, ST=Unknown, C=Unknown" \
         -keypass "$STORE_AND_CERT_PASS" \
         -keystore $KEYSTORE_PATH \

@@ -28,6 +28,7 @@ that you really would like to have in place before you get the the UI.
 * `SSL_ENABLED`: Configure HTTPS support or not.
 * `KEYSTORE_PATH`: The keystore path for jetty HTTPS certificate to use. Default is `/archiva-data/ssl/keystore`.
 * `STORE_AND_CERT_PASS`: The keystore and certificate password to use. Default is `changeit`.
+* `CERT_ALIAS`: The certificate alias to use. Default is `archiva`.
 * `CA_CERT` and `CA_CERTS_DIR`: Specify the CA cert(Or the path to dir store multiply certs) to install into system keystore.
 * `DB_TYPE` --> db type
     * default: derby
