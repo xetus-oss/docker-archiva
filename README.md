@@ -1,6 +1,6 @@
 # Archiva
 
-An apache archiva 2.1.1 container designed for a simple standalone deployment. Key features are:
+An apache archiva 2.2.0 container designed for a simple standalone deployment. Key features are:
 
 1. The configuration/data is truly externalized, allowing container replacement/upgrading (`/archiva-data`)
 2. Configurable HTTPS support is included, with the ability to assign custom keystore/truststore
