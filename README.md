@@ -30,8 +30,6 @@ that you really would like to have in place before you get the the UI.
 * `STORE_AND_CERT_PASS`: The keystore and certificate password to use. Default is `changeit`.
 * `DB_TYPE` --> db type
     * default: derby
-* `ARCHIVA_DB_NAME` --> archiva db name
-    * default: archiva_repository
 * `USERS_DB_NAME` --> users db name
     * default: archiva_users
 * `DB_USER` --> db user
@@ -62,7 +60,7 @@ Copy the custom keystore in data mount under `ssl/keystoer`. The locations can b
 
 #### (3) Use a MYSQL db, with a linked container
 
-The example below creates a archiva container with the linked mysql db. Please make sure `archiva_users` and `archiva_repository` database created first, these database name can be changed using `ARCHIVA_DB_NAME` and `USERS_DB_NAME` separately.
+The example below creates a archiva container with the linked mysql db. Please make sure `archiva_users` database created first, these database name can be changed using `USERS_DB_NAME`.
 
 ```
 docker run --name archiva -h archiva -p 443:8443\
@@ -71,7 +69,7 @@ docker run --name archiva -h archiva -p 443:8443\
 
 #### (4) Use a MYSQL db, with an external host
 
-The example below creates a archiva container using an external db. Please make sure `archiva_users` and `archiva_repository` database created first, these database name can be changed using `ARCHIVA_DB_NAME` and `USERS_DB_NAME` separately.
+The example below creates a archiva container using an external db. Please make sure `archiva_users` database created first, these database name can be changed using `USERS_DB_NAME`.
 
 ```
 docker run --name archiva -h archiva -p 443:8443\

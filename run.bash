@@ -76,7 +76,6 @@ then
   # - DB_TYPE
   # - DB_HOST
   # - USERS_DB_NAME
-  # - ARCHIVA_DB_NAME
   # - DB_USER
   # - DB_PASS
   
@@ -99,7 +98,6 @@ then
     cat ${JETTY_CONF_PATH}/JETTY_DB_CONF | \
       sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' |\
       sed 's,{{USERS_DB_NAME}},'"${USERS_DB_NAME:-archiva_users}"',' |\
-      sed 's,{{ARCHIVA_DB_NAME}},'"${ARCHIVA_DB_NAME:-archiva_repository}"',' |\
       sed 's/{{DB_USER}}/'"${DB_USER}"'/' |\
       sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' > /tmp/.JETTY_DB_CONF
   fi
