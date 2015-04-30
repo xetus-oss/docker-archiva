@@ -125,13 +125,6 @@ then
       then
       echo "Generating self-signed keystore and certificate for HTTPS support(Dst: $KEYSTORE_PATH)"
       mkdir -p ${DATA_PATH}/ssl/
-      keytool -genkey -noprompt \
-        -alias jetty \
-        -dname "CN=${HOSTNAME}, OU=Archiva, O=Archiva, L=Unknown, ST=Unknown, C=Unknown" \
-        -keyalg RSA \
-        -storepass "$STORE_AND_CERT_PASS"\
-        -keypass "$STORE_AND_CERT_PASS"\
-        -keystore ${KEYSTORE_PATH}
       keytool -genkey -noprompt -trustcacerts \
         -keyalg RSA \
         -alias "archiva" \
