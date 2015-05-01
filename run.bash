@@ -8,7 +8,6 @@ JETTY_NEED_CONFIG=false
 DATA_PATH=/archiva-data
 JETTY_CONF_PATH=/jetty_conf
 
-
 mkdir -p ${DATA_PATH}/temp
 chown archiva:archiva ${DATA_PATH}/temp
 
@@ -61,6 +60,9 @@ DERBY_DS_JETTY_CONF='<New id="users" class="org.eclipse.jetty.plus.jndi.Resource
     </Arg>
   </New>'
 
+function santizeVarForSed(){
+  echo "$1" | sed 's/\([\&\/;]\)/\\\1/g'
+}
 #
 # Config jetty.xml:
 # - DB settings
@@ -75,35 +77,27 @@ then
   # Varaibles:
   # - DB_TYPE
   # - DB_HOST
-  # - USERS_DB_NAME
+  # - DB_PORT
   # - DB_USER
   # - DB_PASS
-  
-
-  # is a mysql database linked?
-  # requires that the mysql containers have exposed
-  # port 3306 respectively.
-  if [ -n "${DATABASE_PORT_3306_TCP_ADDR}" ]
-  then
-    echo "Use linked DB container"
-    DB_TYPE=mysql
-    DB_HOST=${DB_HOST:-${DATABASE_PORT_3306_TCP_ADDR}:${DATABASE_PORT_3306_TCP_PORT}}
-    DB_USER=${DB_USER:-root}
-    DB_PASS=${DB_PASS:-${DATABASE_ENV_MYSQL_ROOT_PASSWORD}}
-  fi
-    
+  # - USERS_DB_NAME
   DB_TYPE=${DB_TYPE:-derby}
   if [ "$DB_TYPE" == "mysql"  ]
   then
+    SANITIZED_DB_USER="`santizeVarForSed \"${DB_USER:-archiva}\"`"
+    SANITIZED_DB_PASS="`santizeVarForSed \"${DB_PASS:-archiva}\"`"
+    SANITIZED_USERS_DB_NAME="`santizeVarForSed \"${USERS_DB_NAME:-archiva_users}\"`"
+
     cat ${JETTY_CONF_PATH}/JETTY_DB_CONF | \
-      sed 's/{{DB_HOST}}/'"${DB_HOST}"'/' |\
-      sed 's,{{USERS_DB_NAME}},'"${USERS_DB_NAME:-archiva_users}"',' |\
-      sed 's/{{DB_USER}}/'"${DB_USER}"'/' |\
-      sed 's/{{DB_PASS}}/'"${DB_PASS}"'/' > /tmp/.JETTY_DB_CONF
+      sed "s/{{DB_HOST}}/${DB_HOST:-db}/" |\
+      sed "s/{{DB_PORT}}/${DB_PORT:-3306}/" |\
+      sed "s/{{USERS_DB_NAME}}/${SANITIZED_USERS_DB_NAME}/" |\
+      sed "s/{{DB_USER}}/${SANITIZED_DB_USER}/" |\
+      sed "s/{{DB_PASS}}/${SANITIZED_DB_PASS}/" > /tmp/.JETTY_DB_CONF
   fi
   if [ "$DB_TYPE" == "derby"  ]
   then
-    echo $DERBY_DS_JETTY_CONF > /tmp/.JETTY_DB_CONF
+    echo "$DERBY_DS_JETTY_CONF" > /tmp/.JETTY_DB_CONF
   fi
   cd /tmp
   sed -i '/{{JETTY_DB_CONF}}/r .JETTY_DB_CONF' jetty.xml
@@ -116,31 +110,36 @@ then
   # Varaibles:
   # - SSL_ENABLED
   # - KEYSTORE_PATH
-  # - STORE_AND_CERT_PASS 
-  # - CERT_ALIAS
+  # - KEYSTORE_PASS 
+  # - KEYSTORE_ALIAS
   # - CA_CERT
   # - CA_CERTS_DIR 
   
   if [ "$SSL_ENABLED" = true ]
   then
     KEYSTORE_PATH=${KEYSTORE_PATH:-${DATA_PATH}/ssl/keystore}
-    STORE_AND_CERT_PASS=${STORE_AND_CERT_PASS:-changeit}
+    KEYSTORE_PASS=${KEYSTORE_PASS:-changeit}
     if [ ! -e "$KEYSTORE_PATH" ]
-      then
+    then
       echo "Generating self-signed keystore and certificate for HTTPS support(Dst: $KEYSTORE_PATH)"
       mkdir -p ${DATA_PATH}/ssl/ 
-      CERT_ALIAS=${CERT_ALIAS:-archiva}
+      KEYSTORE_ALIAS=${KEYSTORE_ALIAS:-archiva}
       keytool -genkey -noprompt -trustcacerts \
         -keyalg RSA \
-        -alias "$CERT_ALIAS" \
+        -alias "$KEYSTORE_ALIAS" \
         -dname "CN=${HOSTNAME}, OU=Archiva, O=Archiva, L=Unknown, ST=Unknown, C=Unknown" \
-        -keypass "$STORE_AND_CERT_PASS" \
+        -keypass "$KEYSTORE_PASS" \
         -keystore $KEYSTORE_PATH \
-        -storepass "$STORE_AND_CERT_PASS"
+        -storepass "$KEYSTORE_PASS"
     fi
-    cp -f ${JETTY_CONF_PATH}/HTTPS_JETTY_CONF /tmp/.HTTPS_JETTY_CONF
-    sed 's,{{KEYSTORE_PATH}},'"${KEYSTORE_PATH}"',' -i /tmp/.HTTPS_JETTY_CONF
-    sed 's/{{STORE_AND_CERT_PASS}}/'"${STORE_AND_CERT_PASS}"'/' -i /tmp/.HTTPS_JETTY_CONF
+    SANITIZED_KEYSTORE_PATH="`santizeVarForSed \"${KEYSTORE_PATH}\"`"
+    SANITIZED_KEYSTORE_PASS="`santizeVarForSed \"${KEYSTORE_PASS}\"`"
+    SANITIZED_KEYSTORE_ALIAS="`santizeVarForSed \"${KEYSTORE_ALIAS:-archiva}\"`"
+    cat ${JETTY_CONF_PATH}/HTTPS_JETTY_CONF |\
+      sed "s/{{KEYSTORE_PATH}}/${SANITIZED_KEYSTORE_PATH}/" |\
+      sed "s/{{KEYSTORE_PASS}}/${SANITIZED_KEYSTORE_PASS}/" |\
+      sed "s/{{KEYSTORE_ALIAS}}/${SANITIZED_KEYSTORE_ALIAS}/" > /tmp/.HTTPS_JETTY_CONF
+
     cd /tmp
     sed -i '/{{HTTPS_JETTY_CONF}}/r .HTTPS_JETTY_CONF' jetty.xml
     rm /tmp/.HTTPS_JETTY_CONF

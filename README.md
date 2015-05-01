@@ -3,8 +3,9 @@
 An apache archiva 2.2.0 container designed for a simple standalone deployment. Key features are:
 
 1. The configuration/data is truly externalized, allowing container replacement/upgrading (`/archiva-data`)
-2. Configurable HTTPS support is included, with the ability to assign custom keystore/truststore
-3. Linked container support for mysql/mariadb using the `database` alias
+2. Configurable HTTPS support is included, with the ability to assign custom keystore
+3. Linked container support for mysql/mariadb using the `db` alias. 
+4. Automatic installation of CA certificates into the container
 
 The configuration of the container was created following the support guide suggested by [Archiva standalone installation guide](http://archiva.apache.org/docs/2.1.1/adminguide/standalone.html).
 
@@ -18,28 +19,17 @@ The command below will setup a running archiva container with externalized data/
 
 ## Available Configuration Parameters
 
-### Initialization parameters
-
-The following parameters are only used to setup the initial configuration. Once the configuration has been established, theses are not used.
-
-The goal here is not to support every parameter, just those parameters
-that you really would like to have in place before you get the the UI.
-
 * `SSL_ENABLED`: Configure HTTPS support or not.
 * `KEYSTORE_PATH`: The keystore path for jetty HTTPS certificate to use. Default is `/archiva-data/ssl/keystore`.
-* `STORE_AND_CERT_PASS`: The keystore and certificate password to use. Default is `changeit`.
-* `CERT_ALIAS`: The certificate alias to use. Default is `archiva`.
+* `KEYSTORE_PASS`: The keystore and certificate password to use. Default is `changeit`.
+* `KEYSTORE_ALIAS`: The certificate alias to use. Default is `archiva`.
 * `CA_CERT` and `CA_CERTS_DIR`: Specify the CA cert(Or the path to dir store multiply certs) to install into system keystore.
-* `DB_TYPE` --> db type
-    * default: derby
-* `USERS_DB_NAME` --> users db name
-    * default: archiva_users
-* `DB_USER` --> db user
-    * default:
-* `DB_PASS` --> db pass
-    * default:
-* `DB_HOST` --> db host
-    * default:
+* `DB_TYPE`: The database type, either `mysql` or `derby`. Default is `derby`.
+* `USERS_DB_NAME`: Only used if `DB_TYPE=mysql`, the database name for the `users` db. Default is `archiva_users`.
+* `DB_USER`: Only used if `DB_TYPE=mysql`, the user to make the db connection with. Default is `archiva`.
+* `DB_PASS`: Only used if `DB_TYPE=mysql`, the db user's password. Default is `archiva`.
+* `DB_HOST`:  Only used if `DB_TYPE=mysql`, the db hostname or IP. Default is `db`.
+* `DB_PORT`:  Only used if `DB_TYPE=mysql`, the db port to connect to. Default is `3306`.
 
 ## Examples
 
@@ -57,7 +47,7 @@ Copy the custom keystore in data mount under `ssl/keystoer`. The locations can b
 
 ```
  docker run --name archiva -h archiva -d -p 443:8443\
-  -e SSL_ENABLED=true -v /somepath/archiva_mnt:/archiva-data xetusoss/archiva
+  -e SSL_ENABLED=true -e KEYSTORE_PASS="mypass" -v /somepath/archiva_mnt:/archiva-data xetusoss/archiva
 ```
 
 #### (3) Use a MYSQL db, with a linked container
@@ -66,7 +56,7 @@ The example below creates a archiva container with the linked mysql db. Please m
 
 ```
 docker run --name archiva -h archiva -p 443:8443\
-  -v /somepath/archiva_mnt:/archiva-data --link mysql:database -e SSL_ENABLED=true xetusoss/archiva
+  -v /somepath/archiva_mnt:/archiva-data --link mysql:db -e SSL_ENABLED=true xetusoss/archiva
 ```
 
 #### (4) Use a MYSQL db, with an external host
@@ -76,7 +66,7 @@ The example below creates a archiva container using an external db. Please make 
 ```
 docker run --name archiva -h archiva -p 443:8443\
   -v /somepath/archiva_mnt:/archiva-data -e DB_TYPE="mysql"\
-  -e DB_HOST="db.example.com:3306"-e DB_USER="SOMEUSER"\
+  -e DB_HOST="db.example.com"-e DB_USER="SOMEUSER"\
   -e DB_PASS="SOMEPASS" -e SSL_ENABLED=true xetusoss/archiva
 ```
 
@@ -86,5 +76,4 @@ The externalized data directory contains 4 directories: `data`, `logs`, `conf`, 
 
  All directory are all standard in an archiva installation, so reference the archiva documentation for those.
 
-
-Pull requests/code copying is welcome.
+Pull requests/code copying are welcome.

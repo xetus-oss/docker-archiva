@@ -24,7 +24,7 @@
   <Arg>
     <New class="org.apache.tomcat.jdbc.pool.DataSource">
       <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
-      <Set name="url">jdbc:mysql://{{DB_HOST}}/{{USERS_DB_NAME}}</Set>
+      <Set name="url">jdbc:mysql://{{DB_HOST}}:{{DB_PORT}}/{{USERS_DB_NAME}}</Set>
       <Set name="username">{{DB_USER}}</Set>
       <Set name="password">{{DB_PASS}}</Set>
     </New>
