@@ -1,7 +1,7 @@
 FROM java:7u65
 MAINTAINER Lu Han <lhan@xetus.com>
 
-ENV VERSION 2.2.0
+ENV VERSION 2.2.1
 
 #
 # Go get the needed tar/jar we'll installing
