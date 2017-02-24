@@ -1,4 +1,4 @@
-FROM java:7u65
+FROM openjdk:8u121
 MAINTAINER Lu Han <lhan@xetus.com>
 
 ENV VERSION 2.2.1
