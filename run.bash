@@ -3,13 +3,11 @@
 #
 # Archiva container bootstrap. See the readme for usage.
 #
+set -e
 source /data_dirs.env
 JETTY_NEED_CONFIG=false
 DATA_PATH=/archiva-data
 JETTY_CONF_PATH=/jetty_conf
-
-mkdir -p ${DATA_PATH}/temp
-chown archiva:archiva ${DATA_PATH}/temp
 
 if [ ! -e "${DATA_PATH}/conf/jetty.xml" ]
 then
@@ -27,7 +25,6 @@ for datadir in "${DATA_DIRS[@]}"; do
     else 
       mkdir -p ${DATA_PATH}/${datadir}
     fi
-    chown archiva:archiva ${DATA_PATH}/${datadir}
   fi
 done
 
@@ -172,5 +169,8 @@ do
     -keystore /etc/ssl/certs/java/cacerts -file "${CA_CERTS_TO_ADD[${i}]}"\
     -storepass changeit -noprompt
 done
-
-/opt/archiva/bin/archiva console
+if [ "$(id -u)" = '0' ]; then
+  chown -R archiva "${DATA_PATH}"
+  chown -R archiva /opt/archiva
+  exec gosu archiva /opt/archiva/bin/archiva console 
+fi
