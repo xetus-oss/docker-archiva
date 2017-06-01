@@ -16,7 +16,7 @@ RUN set -x \
   && chmod +x /usr/local/bin/gosu \
   && gosu nobody true 
 
-ENV VERSION 2.2.1
+ENV VERSION 2.2.3
 
 #
 # Go get the needed tar/jar we'll installing
