@@ -173,4 +173,6 @@ if [ "$(id -u)" = '0' ]; then
   chown -R archiva "${DATA_PATH}"
   chown -R archiva /opt/archiva
   exec gosu archiva /opt/archiva/bin/archiva console 
+else
+  /opt/archiva/bin/archiva console
 fi
