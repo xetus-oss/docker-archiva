@@ -17,3 +17,6 @@ for datadir in "${DATA_DIRS[@]}"; do
   fi
   ln -s /archiva-data/${datadir#/*} ${datadir}
 done
+
+mkdir -p /opt/archiva/temp && chmod -R 777 /opt/archiva/temp
+
