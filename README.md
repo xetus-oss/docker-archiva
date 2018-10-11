@@ -1,12 +1,13 @@
 # xetusoss/archiva
 
 An Apache Archiva image for simple standalone deployments.
+
 ---
 
 # Tags and respective `Dockerfile` links
 
--   [`v2`, `v2.2.3`, `latest` (*v2.2-v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/master/Dockerfile)
--   [`2.2.3`, `v2-legacy` (*v2.2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/tree/v2-legacy)
+-   [`v2`, `v2.2.3`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/tree/v2)
+-   [`2.2.3`, `v2-legacy` (*v2-legacy/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/tree/v2-legacy)
 
 # Quick Reference
 
@@ -117,7 +118,7 @@ Archiva 2.x suffers from a series quirks. Most of them can be reasonably avoided
 
 -   Admin UI: After refresh, navigate to a new section and back again
 
-    While Archiva's REST endpoints are solid, the web UI has lots has lots of little annoyances. For example, if you refesh a page while signed in, you have to navigate to a *new* page before things work properly (). 
+    While Archiva's REST endpoints are solid, the web UI has lots has lots of little annoyances. For example, if you refesh a page while signed in, you have to navigate to a *new* page before things work properly. 
 
 -   Disable local user password expiration
 
@@ -133,16 +134,15 @@ After running everything in docker containers for the past several years, we've 
 
 ### Key Changes
 
--    __Direct java execution (container signals are supported)__
-
+-   __Direct java execution (container signals are supported)__
     The previous image version tried to stick closely to the recommended Archiva standalone deployment guide. However, this used the tanukisoft wrapper which made customizations difficult, had obsolete parameters, and caused the containers to not respect stop/kill signals.
 
     This version directly calls the java command solves all those issues.
 
--    __Jetty-based HTTPS support dropped, proxy support added__
+-   __Jetty-based HTTPS support dropped, proxy support added__
     Running a proxy server in front of this container was a always better solution than managing HTTPS within jetty. This is espeicially true since the latest jetty version included Archiva's standalone release is an obsolete version.
 
--   __Custom CA certificate support simplified, fixed__
+-  __Custom CA certificate support simplified, fixed__
    The custom CA certificate support was simplified. All custom ca certificates must now be placed in a folder and mounted into `/certs`.
 
    Also, the container will spit out error messages when certificates are re-added to container's keystore.
@@ -169,8 +169,3 @@ If you manually managed the `jetty.xml` configuration in your previous container
 ##### If you loaded custom CA certs into the container
 
 Put the certificates into a folder using `.pem` or `.crt` extensions and mount the directory in the container under `/certs` .
-
-
-
-
-
