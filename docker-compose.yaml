@@ -1,0 +1,29 @@
+version: '3.4'
+services:
+  #
+  # The primary archiva service
+  #
+  archiva:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      cache_from: 
+        - xetusoss/archiva:latest
+    image: xetusoss/archiva:${TAG}
+    ports: [ "8080:8080" ]
+    networks:
+      - container
+    environment:
+      SMTP_HOST: smtp
+      SMTP_PORT: 1025
+  #
+  # Used for validating mail is sent as expected
+  #
+  smtp:
+    image: mailhog/mailhog:latest
+    ports: [ "8025:8025" ]
+    networks:
+      - container
+
+networks:
+  container:

@@ -1,0 +1,67 @@
+#
+# * This is an override to the default docker-compose.yaml file
+#
+version: '3.4'
+services:
+  #
+  # Test a a specific archiva image.
+  #
+  archiva:
+    environment:
+      DB_TYPE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: archiva
+      DB_PASSWORD: archiva
+      DB_NAME: archiva
+    entrypoint:
+      - bash
+      - -c
+      - while [ ! -e /shared/dbready ]; do sleep 1; done; exec /entrypoint.sh
+    volumes:
+      - type: volume
+        source: shared
+        target: /shared
+
+  #
+  # Create a MySQL container to show the mysql connection works.
+  #
+  mysql:
+    image: mysql:${MYSQL_TAG:-latest}
+    environment:
+      MYSQL_DATABASE: archiva
+      MYSQL_USER: archiva
+      MYSQL_PASSWORD: archiva
+      MYSQL_ROOT_PASSWORD: foobar
+    networks:
+      - container
+
+  #
+  # Wait for the mysql db to be read, then write out a file
+  #
+  mysql-watcher:
+    image: mysql:${MYSQL_TAG:-latest}
+    environment:
+      MYSQL_DATABASE: archiva
+      MYSQL_USER: archiva
+      MYSQL_PASSWORD: archiva
+      MYSQL_ROOT_PASSWORD: foobar
+    command:
+      - "bash"
+      - "-c"
+      - >
+        [ -e /shared/dbready ] && rm -v /shared/dbready;
+        while ! mysql --connect_timeout=1 -u root --password=foobar -h mysql -e "SELECT 1" archiva; do
+         sleep 1;
+        done;
+        echo "!! DB READY !!";
+        touch /shared/dbready;
+    volumes:
+      - type: volume
+        source: shared
+        target: /shared
+    networks:
+      - container
+
+volumes:
+  shared:

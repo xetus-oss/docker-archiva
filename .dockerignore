@@ -1,2 +1,9 @@
 .git
 .DS_Store
+README.md
+LICENSE.txt
+local-tests.sh
+http-proxy-test
+docker-compose*
+Makefile
+logs

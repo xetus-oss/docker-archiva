@@ -1,0 +1,29 @@
+#
+# * This is an override to the default docker-compose.yaml file
+#
+version: '3.4'
+services:
+  #
+  # Test a a specific archiva image.
+  #
+  archiva:
+    ports: []
+    environment:
+      PROXY_BASE_URL: https://localhost:${HTTPS_PORT:-8443}
+  #
+  # Support an nginx container as an https proxy.
+  #
+  # The startup script creates a self-signed certificated 
+  # localhost, which is used by the template nginx.conf
+  #
+  nginx:
+    image: nginx
+    ports: ["${HTTPS_PORT:-8443}:8443"]
+    command:  [ "bash", "/nginx-entrypoint.sh" ]
+    environment:
+      PROXY_URL: https://localhost:${HTTPS_PORT:-8443}
+    volumes:
+      - ./https-proxy-test/nginx.conf:/tmp/nginx.conf
+      - ./https-proxy-test/nginx-entrypoint.sh:/nginx-entrypoint.sh
+    networks:
+      - container
