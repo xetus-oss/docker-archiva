@@ -108,7 +108,7 @@ If custom CA certificates are required, they can be automatically loaded into th
 The Archiva project is not dead, but it's development is (very) slow. A reasonable question to ask is "Why bother when there are other tools like Artifactory?". We don't have a clear-cut answer for that, but here are some of the reasons you might consider Archiva.
 
 1. It's a pure non-commercial product, maintained by Apache.
-2. It's 'right-sized'. Archiva is small maven-style artifact repository that probably has all core features you'll need and nothing else. Flexible repository management, LDAP Authentication support, and a small UI. 
+2. It's 'right-sized'. Archiva is small maven-style artifact repository that probably has all the core features you'll need and nothing else. Flexible repository management, LDAP Authentication support, and a small UI. 
 3. You have an existing Archiva repository to maintain.
 4. It has this great docker image :-).
 
@@ -147,7 +147,7 @@ After running everything in docker containers for the past several years, we've 
 
    Also, the container will spit out error messages when certificates are re-added to container's keystore.
 
-### Upgrading from Image Version 1
+### Upgrading from Image Version 1 (tag `2.2.3` and earlier)
 
 A few manual steps may be required to upgrade to version 2 of the `xetusoss/archiva`, depending on your deployment configuration.
 

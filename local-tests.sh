@@ -4,7 +4,6 @@
 # A simple test script to perform basic scenario tests
 # against the built image. 
 #
-# See the "Local Testing" section of DEVELOPMENT.md
 #
 
 LOGFILE="logs/$(date +"%Y.%m.%d.%H.%M.%S").test.log"
@@ -110,6 +109,10 @@ trap interrupted SIGINT SIGQUIT SIGHUP SIGABRT SIGKILL
 
 echo "Logging to $LOGFILE"
 
+#
+# Perform a basic deployment using the standard 
+# options from the docker-compose.yaml
+#
 if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "basic" ]
 then
   TESTNAME="Basic deployment"
@@ -121,6 +124,10 @@ else
   BASIC_TEST_PASSED=0
 fi
 
+#
+# Perform a deployment with proxy support. Relies
+# on the docker-compose.ngnix-https.yaml
+#
 if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "proxy" ]
 then
   TESTNAME="HTTPS Proxy"
@@ -145,6 +152,10 @@ else
   NGINX_TEST_PASSED=0
 fi
 
+#
+# Perform a deployment with mysql support. Relies
+# on the docker-compose.mysql.yaml
+#
 if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "mysql" ]
 then
   TESTNAME="MySQL user db"
@@ -173,9 +184,6 @@ fi
 
 cleanUp
 
-#
-# Step 3: Perform the mysql test
-#
 test $BASIC_TEST_PASSED -eq 0 &&\
   test $NGINX_TEST_PASSED -eq 0 &&\
   test $MYSQL_TEST_PASSED -eq 0
