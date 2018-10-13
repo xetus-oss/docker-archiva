@@ -112,16 +112,6 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 3. You have an existing Archiva repository to maintain.
 4. It has this great docker image :-).
 
-# Hints for running Archiva v2.x
-
-Archiva 2.x suffers from a series quirks. Most of them can be reasonably avoided and here are some hints so your experience is smooth.
-
--   _(Web UI) After refresh, navigate to a new section and back again_
-
-    While Archiva's REST endpoints are solid, the web UI has lots has lots of little annoyances. For example, if you refesh a page while signed in, you have to navigate to a *new* page before things work properly. You'll get a series of 401 responses initially.
-
--   _If you've botched your configuration, manually edit the `archiva.xml`_
-
 # Change Log
 
 ## Image version 2 (Still Archiva 2.2.3)
