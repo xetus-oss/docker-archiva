@@ -18,7 +18,7 @@ showvars:
 	@echo PUSH_PATH = ${PUSH_PATH}
 
 clean:
-	rm -rv ./logs
+	-rm -rv ./logs
 	docker-compose -f docker-compose.yaml\
 		down --volumes --remove-orphans
 	docker-compose -f docker-compose.yaml\
