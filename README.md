@@ -116,15 +116,11 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 
 Archiva 2.x suffers from a series quirks. Most of them can be reasonably avoided and here are some hints so your experience is smooth.
 
--   Admin UI: After refresh, navigate to a new section and back again
+-   _(Web UI) After refresh, navigate to a new section and back again_
 
-    While Archiva's REST endpoints are solid, the web UI has lots has lots of little annoyances. For example, if you refesh a page while signed in, you have to navigate to a *new* page before things work properly. 
+    While Archiva's REST endpoints are solid, the web UI has lots has lots of little annoyances. For example, if you refesh a page while signed in, you have to navigate to a *new* page before things work properly. You'll get a series of 401 responses initially.
 
--   Disable local user password expiration
-
-    Local user password expiration wasn't carefully implemented in Archiva.  We recommend just disabling the feature.
-
--   If you've botched your configuration, edit the `archiva.xml`
+-   _If you've botched your configuration, manually edit the `archiva.xml`_
 
 # Change Log
 
