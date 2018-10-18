@@ -69,6 +69,10 @@ volumes:
 
 _For a more complete example of using docker-compose using ngnix as an https proxy, see [docker-compose.nginx-https.yaml](docker-compose.nginx-https.yaml)_
 
+## Deploying in Kubernetes
+
+The easiest way to deploy this image in Kubernetes is to use the associated helm chart, [xetusoss-archiva](https://github.com/xetus-oss/helm-charts/tree/master/xetusoss-archiva). See the chart documentation for usage.
+
 # Environment Variables
 
 ## `SMTP_HOST`, `SMTP_PORT`
