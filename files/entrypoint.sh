@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# See the README file for for usage!
+# See the README file for usage!
 #
 set -e
 source /config.env
@@ -16,7 +16,7 @@ DB_TYPE=${DB_TYPE:-derby}
 JETTY_CONFIG_PATH=${JETTY_CONFIG_PATH:-/tmp/jetty.xml}
 
 #
-# Initialize the volume data directories, if necessary 
+# Initialize the volume data directories
 #
 for datadir in "${EXTERNAL_DATA_DIRS[@]}"
 do
@@ -34,7 +34,7 @@ do
 done
 
 #
-# Setup the jetty.xml, if it does not already exist
+# Setup the managed jetty.xml if it does not already exist
 #
 if [ ! -e "$JETTY_CONFIG_PATH" ]
 then
@@ -87,7 +87,7 @@ fi
 #
 # Setup the JVM enviroment arguments
 #
-export CLASSPATH=$(find /archiva/lib -name "*.jar" \
+export CLASSPATH=$(find /archiva/lib -name "*.jar"\
   | sed '/wrapper.jar/d' | awk '{ printf("%s:", $1) }')
 
 JVM_OPTS=(
@@ -125,6 +125,6 @@ fi
 
 cd ${ARCHIVA_HOME}
 export MYSQL_JDBC_URL
-exec java $JVM_EXTRA_OPTS ${JVM_OPTS[@]} \
+exec java $JVM_EXTRA_OPTS ${JVM_OPTS[@]}\
   org.eclipse.jetty.start.Main\
   "$JETTY_CONFIG_PATH"
