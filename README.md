@@ -7,6 +7,7 @@ An Apache Archiva image for simple standalone deployments.
 # Tags and respective `Dockerfile` links
 
 -   [`v2`, `v2.2.3`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
+-   [`v2-snapshot` (*v2-snapshot/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)
 -   [`2.2.3`, `v2-legacy` (*v2-legacy/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)
 
 # Quick Reference
