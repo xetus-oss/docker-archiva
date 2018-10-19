@@ -8,6 +8,13 @@ RUN groupadd --gid 1000 archiva && useradd --gid 1000 -g archiva archiva
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 
+# Used to tell the resource-retreiver.sh script
+# to build the most recent snapshot.
+#
+# Only specified in the v2-snapshot branch, and needed
+# because we use docker cloud builds.
+ENV BUILD_SNAPSHOT_RELEASE true
+
 #
 # Capture the external resources in two a layers.
 # 
