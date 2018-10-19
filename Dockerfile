@@ -1,4 +1,4 @@
-FROM openjdk:8u181
+FROM openjdk:8
 MAINTAINER Xetus OSS <xetusoss@xetus.com>
 
 # Add the archiva user and group with a specific UID/GUI to ensure

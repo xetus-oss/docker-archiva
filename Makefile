@@ -4,9 +4,9 @@
 #
 TAG ?= latest
 REPOSITORY_NAME = xetusoss/archiva
-REGISTRY ?= ""
+REGISTRY ?=
 PUSH_TAG = $(REPOSITORY_NAME):$(TAG)
-ifneq ("$(REGISTRY)", "")
+ifneq ($(REGISTRY),)
 	PUSH_TAG = $(REGISTRY)/$(REPOSITORY_NAME):$(TAG)
 endif
 export TAG
