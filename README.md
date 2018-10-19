@@ -44,7 +44,7 @@ There are several ways to deploy an Apache Archiva environment with this image. 
 ## Using the `docker` command
 
 ```console
-docker run --name archiva -p 8080:8080 xetusoss/archiva:2.2.3-v2
+docker run --name archiva -p 8080:8080 xetusoss/archiva
 ```
 
 ## Deploying with `docker-compose`
@@ -55,7 +55,7 @@ The example below shows how to deploy archiva with a separate data volume using 
 version: '3.4'
 services:
   archiva:
-    image: xetusoss/archiva:2.2.3-v2
+    image: xetusoss/archiva:latest
     volumes:
       - type: volume
         source: archiva-data-vol
