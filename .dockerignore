@@ -1,6 +1,7 @@
 .git
 .DS_Store
 README.md
+CONTRIBUTING.md
 LICENSE.txt
 local-tests.sh
 http-proxy-test
