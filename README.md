@@ -18,7 +18,7 @@ An Apache Archiva image for simple standalone deployments.
 
 -    **Contributing**:
 
-     Pull requests/code copying are welcome! See the [Development](DEVELOPMENT.md) documentation for general guidelines.
+     Pull requests/code copying are welcome! See the [Contributing](CONTRIBUTING.md) documentation for general guidelines.
 
 -    **License**:
 
