@@ -160,3 +160,28 @@ If you manually managed the `jetty.xml` configuration in your previous container
 ##### If you loaded custom CA certs into the container
 
 Put the certificates into a folder using `.pem` or `.crt` extensions and mount the directory in the container under `/certs` .
+
+
+# FAQs
+
+## Why am I getting 404 errors when trying to download certain artifacts after upgrading to Image Version 2 from Image Version 1?
+
+If you've upgraded from Image Version 1 to Image Version 2 and subsequently uploaded artifacts to Archiva, all artifacts uploaded to Archiva after the upgrade will be stored in a transient container directory instead of the exposed volume directory (`/archiva/repositories` vs `/archiva-data/repositories`). This means those artifacts are lost on container restart.
+
+While those artifacts can't be recovered, a new version of the `xetusoss/docker-archiva:V2` image tag has been released with a patch that will force all newly uploaded artifacts to be saved to the correct path. To remove the ghost artifacts from the Archiva UI you'll additionally need to follow these steps (replacing $ARCHIVA_DATA_PATH with the bind path for the Archiva container's `/archiva-data` volume):
+
+1. Make a backup of your archiva configuration file:
+  
+  ```bash
+  cp "$ARCHIVA_DATA_PATH/conf/archiva.xml" "$ARCHIVA_DATA_PATH/conf/archiva.xml.bk"
+  ```
+
+2. Delete all repositories via the Archiva Repositories page.
+3. Revert the Archiva configuration using your backup: 
+
+  ```bash
+  cp "$ARCHIVA_DATA_PATH/conf/archiva.xml.bk" to "$ARCHIVA_DATA_PATH/conf/archiva.xml"
+  ```
+
+4. Restart the archiva container.
+5. Check in the UI that all ghost artifacts have been removed.
