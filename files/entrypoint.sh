@@ -124,57 +124,9 @@ then
 fi
 
 #
-# Fix the repository locations in the archiva.xml 
-# configuration from the v2-legacy image
+# Perform any upgrades required for the v2 image.
 #
-# note: this is a no-op if the archiva config doesn't
-# need to be changed.
-#
-REPO_LOCATIONS_TO_FIX=$(grep "<location>./repositories/" "${ARCHIVA_BASE}/conf/archiva.xml" &2>&1)
-if [ ! -z "$REPO_LOCATIONS_TO_FIX" ]
-then
-  echo 
-  echo "================"
-  echo "Fixing relative repository location in configuration file."
-  echo 
-  echo "!! ADDITIONAL ACTION IS LIKELY REQUIRED !!"
-  echo 
-  echo "Your Archiva UI might display artifacts that aren't actually "
-  echo "persisted! To remove the ghost artifacts from the UI:"
-  echo
-  echo "  1. Make a backup of your archiva configuration file (update paths below as appropriate):"
-  echo
-  echo "      cp /archiva-data/conf/archiva.xml /archiva-data/conf/archiva.xml.bk"
-  echo 
-  echo "  2. In the Archiva UI, delete all repositories via the Repositories page."
-  echo "     Do *NOT* delete the contents!"
-  echo
-  echo "  3. Revert the Archiva configuration using your backup: "
-  echo
-  echo "      cp /archiva-data/conf/archiva.xml.bk to /archiva-data/conf/archiva.xml"
-  echo
-  echo "  4. Restart the archiva container"
-  echo
-  echo "  5. In the Archiva UI, re-assign user permissions for the repositories via"
-  echo "     the Users => Manage pages."
-  echo
-  echo "For more details see: https://github.com/xetus-oss/docker-archiva/issues/13"
-  echo "================"
-  echo
-
-  cat ${ARCHIVA_BASE}/conf/archiva.xml | \
-    sed -E 's@<(location|indexDir)>\./repositories/(.*)</(location|indexDir)>@<\1>/archiva-data/repositories/\2</\3>@' > \
-      ${ARCHIVA_BASE}/conf/archiva.xml
-
-  cp ${ARCHIVA_BASE}/conf/archiva.xml ${ARCHIVA_BASE}/conf/archiva.xml.bk
-
-  # TODO: make this more specific; i.e. - /repositories/repositories/[internal|snapshot]?
-  if [ -e "${ARCHIVA_BASE}/repositories/repositories" ]
-  then
-    echo "Removing old .indexer files stored under ${ARCHIVA_BASE}/repositories/repositories..."
-    rm -r ${ARCHIVA_BASE}/repositories/repositories
-  fi
-fi
+./upgrade_v2.sh
 
 cd ${ARCHIVA_HOME}
 export MYSQL_JDBC_URL
