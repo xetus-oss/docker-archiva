@@ -22,10 +22,9 @@ then
     echo "data which might be destructive to your deployment." 
     echo
     echo
-    echo "Please see the section of the README titled 'performing the upgrade to v2'"
-    echo "for a detailed listing of what the upgrade will do:"
+    echo "Please see the section of the README titled 'Upgrading from tag 2.2.3 and earlier'"
     echo
-    echo "  https://github.com/xetus-oss/docker-archiva#f-you-use-the-pre-v2-default-Archiva-configuration"
+    echo "  https://github.com/xetus-oss/docker-archiva#enable-configuration-migrations"
     echo
     echo
     echo "When ready to proceed with the upgrade, restart the container with"
