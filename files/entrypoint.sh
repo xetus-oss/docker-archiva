@@ -123,6 +123,11 @@ then
   )
 fi
 
+#
+# Perform any upgrades required for the v2 image.
+#
+./upgrade_v2.sh
+
 cd ${ARCHIVA_HOME}
 export MYSQL_JDBC_URL
 exec java $JVM_EXTRA_OPTS ${JVM_OPTS[@]}\
