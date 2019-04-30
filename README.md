@@ -6,7 +6,7 @@ An Apache Archiva image for simple standalone deployments.
 
 # Tags and respective `Dockerfile` links
 
--   [`v2`, `v2.2.3`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
+-   [`v2`, `v2.2.4`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
 -   [`v2-snapshot` (*v2-snapshot/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)
 -   [`2.2.3`, `v2-legacy` (*v2-legacy/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)
 
@@ -119,9 +119,13 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 
 # Change Log
 
-## Image version 2 (Still Archiva 2.2.3)
+## `V2.2.4`
 
-After running everything in docker containers for the past several years, we've learned a few things about stateful applications in docker. Version 2 of this image is very different from the first one because it takes those lessons into account.
+Support for [Archiva 2.2.4](http://archiva.apache.org/docs/2.2.4/release-notes.html), which is a minor patch release to `2.2.4`. `V2` has been updated to point to `v2.2.4`.
+
+## `V2` (Still Archiva 2.2.3)
+
+After running everything in docker containers for the past several years, we've learned a few things about stateful applications in docker. The `v2` tag of this image is very different from previous ones because it takes those lessons into account.
 
 ### Key Changes
 
@@ -138,13 +142,30 @@ After running everything in docker containers for the past several years, we've 
 
    Also, the container will spit out error messages when certificates are re-added to container's keystore.
 
-### Upgrading from Image Version 1 (tag `2.2.3` and earlier)
+### Upgrading from tag `2.2.3` and earlier
 
-A few manual steps may be required to upgrade to version 2 of the `xetusoss/archiva`, depending on your deployment configuration.
+A few manual steps will be required to upgrade to the `v2` series of the `xetusoss/archiva`, depending on your deployment configuration.
+
+##### Enable configuration migrations
+
+Repository definitions created by images before the `v2` series used relative paths by default. These relative paths don't work properly in the `v2` series (see xetusoss/archiva#13).
+
+The `v2` series image includes a script that can detect older configurations and upgrade them automatically, but the upgrade process...
+
+1. Has the potential to break some custom configurations (though we don't know of any ATM)
+2. Will cause Archiva to re-scan and re-index your entire repository.
+
+To be on the safe side, we recommend making backups of these three paths under your data volume before performing the upgrade:
+
+* `conf/archiva.xml`
+* `data/jcr`
+* `repositories/repositories`
+
+When ready, launch a `v2` container with the `UPGRADE_PRE_V2` environment variable to `true` to enable the migration script.
 
 ##### If you used the version 1 HTTPS support
 
-To swap an existing container that used the built-in HTTPS support with one that uses proxy-based HTTPS support, create a new container with a version 2 image setting `PROXY_BASE_URL` environment variable and omit any of the following variables that you used previously:
+To swap an existing container that used the built-in HTTPS support with one that uses proxy-based HTTPS support, create a new container with a version 2 image setting the `PROXY_BASE_URL` environment variable and omit any of the following variables used previously:
 
 * `SSL_ENABLED`
 * `KEYSTORE_PATH`
@@ -159,4 +180,4 @@ If you manually managed the `jetty.xml` configuration in your previous container
 
 ##### If you loaded custom CA certs into the container
 
-Put the certificates into a folder using `.pem` or `.crt` extensions and mount the directory in the container under `/certs` .
+Put the certificates into a folder using `.pem` or `.crt` extensions and mount the directory in the container under `/certs`.

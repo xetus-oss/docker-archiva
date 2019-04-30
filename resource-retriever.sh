@@ -5,9 +5,10 @@ set -eo pipefail
 #
 # Build the most recent snapshot, if specified in the environment
 #
+BUILD_SNAPSHOT_RELEASE=${BUILD_SNAPSHOT_RELEASE:-false}
 if [ $BUILD_SNAPSHOT_RELEASE = true ]
 then
-  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/2.2.4-SNAPSHOT/"
+  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/2.2.5-SNAPSHOT/"
 
   BUILD_NO=$(curl -s "${ARCHIVA_SNAPSHOTS_BASE}maven-metadata.xml" |\
     grep buildNumber | cut -f2 -d'>' | cut -f1 -d'<')
@@ -26,8 +27,8 @@ fi
 #
 # Archiva binary parameters
 #
-ARCHIVA_RELEASE_URL=${ARCHIVA_RELEASE_URL:-https://archive.apache.org/dist/archiva/2.2.3/binaries/apache-archiva-2.2.3-bin.tar.gz}
-ARCHIVA_RELEASE_MD5SUM=${ARCHIVA_RELEASE_MD5SUM:-085ea9afd0bef07fba71b892af44dc11}
+ARCHIVA_RELEASE_URL=${ARCHIVA_RELEASE_URL:-https://www-us.apache.org/dist/archiva/2.2.4/binaries/apache-archiva-2.2.4-bin.tar.gz}
+ARCHIVA_RELEASE_MD5SUM=${ARCHIVA_RELEASE_MD5SUM:-597aeb9f42e634ae58256fb99997040f}
 
 #
 # MySQL connector parameters

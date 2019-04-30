@@ -9,7 +9,8 @@ source /tmp/config.env
 mv /tmp/config.env /config.env
 mv /tmp/entrypoint.sh /entrypoint.sh
 mv /tmp/healthcheck.sh /healthcheck.sh
-chmod +x /entrypoint.sh /healthcheck.sh
+mv /tmp/upgrade_v2.sh /upgrade_v2.sh
+chmod +x /entrypoint.sh /healthcheck.sh /upgrade_v2.sh
 
 #
 # Initialize the data directories
