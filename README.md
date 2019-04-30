@@ -6,7 +6,7 @@ An Apache Archiva image for simple standalone deployments.
 
 # Tags and respective `Dockerfile` links
 
--   [`v2`, `v2.2.3`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
+-   [`v2`, `v2.2.4`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
 -   [`v2-snapshot` (*v2-snapshot/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)
 -   [`2.2.3`, `v2-legacy` (*v2-legacy/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)
 
@@ -118,6 +118,10 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 4. It has this great docker image :-).
 
 # Change Log
+
+## `V2.2.4`
+
+Support for [Archiva 2.2.4](http://archiva.apache.org/docs/2.2.4/release-notes.html), which is a minor patch release to `2.2.4`. `V2` has been updated to point to `v2.2.4`.
 
 ## `V2` (Still Archiva 2.2.3)
 
