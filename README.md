@@ -4,11 +4,13 @@ An Apache Archiva image for simple standalone deployments.
 
 ---
 
-# Tags and respective `Dockerfile` links
+# Tags
 
--   [`v2`, `v2.2.4`, `latest` (*v2/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)
--   [`v2-snapshot` (*v2-snapshot/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)
--   [`2.2.3`, `v2-legacy` (*v2-legacy/Dockerfile*)](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)
+| Tag                                                                                        | Description                           |
+|--------------------------------------------------------------------------------------------|---------------------------------------|
+|[`v2`,`v2.2.4`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
+|[`v2-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)    | Tracks v2 snapshot builds for Archiva |
+|[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
 # Quick Reference
 
@@ -110,10 +112,10 @@ If custom CA certificates are required, they can be automatically loaded into th
 
 # Why Archiva?
 
-The Archiva project is not dead, but it's development is (very) slow. A reasonable question to ask is "Why bother when there are other tools like Artifactory?". We don't have a clear-cut answer for that, but here are some of the reasons you might consider Archiva.
+The Archiva project is not dead, but it's development is (very) slow. A reasonable question to ask is "Why bother when there are other tools, like Artifactory?". We don't have a clear-cut answer for that, but here are some of the reasons you might consider Archiva.
 
 1. It's a pure non-commercial product, maintained by Apache.
-2. It's 'right-sized'. Archiva is small maven-style artifact repository that probably has all the core features you'll need and nothing else. Flexible repository management, LDAP Authentication support, and a small UI. 
+2. It's 'right-sized'. Archiva is small maven-style artifact repository that probably has all the core features you'll need and nothing else. It includes flexible repository management, LDAP Authentication support, a small UI, etc.
 3. You have an existing Archiva repository to maintain.
 4. It has this great docker image :-).
 
@@ -121,7 +123,7 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 
 ## `V2.2.4`
 
-Support for [Archiva 2.2.4](http://archiva.apache.org/docs/2.2.4/release-notes.html), which is a minor patch release to `2.2.4`. `V2` has been updated to point to `v2.2.4`.
+Support for [Archiva 2.2.4](http://archiva.apache.org/docs/2.2.4/release-notes.html), which is a minor patch release to `2.2.3`. `V2` has been updated to point to `v2.2.4`.
 
 ## `V2` (Still Archiva 2.2.3)
 
