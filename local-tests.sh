@@ -178,14 +178,50 @@ then
       MYSQL_TEST_PASSED=1
     fi
   fi
+  cleanUp
 else
   MYSQL_TEST_PASSED=0
 fi
 
-cleanUp
+if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "cacerts" ]
+then
+  TESTNAME="Custom CA Certs"
+  BASE_COMPOSE="docker-compose -f docker-compose.cacerts.yaml"
+  basicComposeScenarioHeathCheckTest
+  CUSTOM_CA_CERTS_TEST_PASSED=$?
+  if (( $CUSTOM_CA_CERTS_TEST_PASSED == 0 ))
+  then
+    # Go check that the cacerts got loaded into the container's cacerts file
+    CERT_LIST="$(docker-compose exec archiva keytool \
+      -list -v -storepass 'changeit'\
+      --noprompt \
+      -keystore /usr/local/openjdk-8/jre/lib/security/cacerts)"
+    if (( $? != 0 ))
+    then
+      printError "Could not list installed cacerts, cannot complete test"
+      CUSTOM_CA_CERTS_TEST_PASSED=1
+    else
+      EXPECTED_CERTS=("archiva_test_ca_1.crt" "archiva_test_ca_2.crt")
+      for expected_cert_alias in "${EXPECTED_CERTS[@]}"
+      do
+        echo "$CERT_LIST" | grep -q "Alias name: $expected_cert_alias"
+        if (( $? != 0 ))
+        then
+          printError "Expected certificate not installed: $expected_cert_alias"
+          CUSTOM_CA_CERTS_TEST_PASSED=1
+          break 
+        fi
+      done
+    fi
+  fi
+  cleanUp
+else
+  CUSTOM_CA_CERTS_TEST_PASSED=0
+fi
 
 test $BASIC_TEST_PASSED -eq 0 &&\
   test $NGINX_TEST_PASSED -eq 0 &&\
-  test $MYSQL_TEST_PASSED -eq 0
+  test $MYSQL_TEST_PASSED -eq 0 &&\
+  test $CUSTOM_CA_CERTS_TEST_PASSED
 
 exit $?
