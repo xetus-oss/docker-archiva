@@ -125,13 +125,13 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 
 Resource configuration improvements from our experience running Archiva in k8s. Still using Archiva `v2.2.4`.
 
--   _Use `-XX:+UseContainerSupport`, retire `JVM_MAX_MEM`_
+-   __Use `-XX:+UseContainerSupport`, retire `JVM_MAX_MEM`__
     Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` enviroment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`. 
 
--   _Set default `MALLOC_ARENA_MAX`_
+-   __Set default `MALLOC_ARENA_MAX`__
     We now automatically export MALLOC_ARENA_MAX=2, unless specified by the user. Setting this option avoids the rare case of the jvm exceeding the container's memory limits.
 
--   _Use the `openjdk:8-jdk-alpine` image_
+-   __Use the `openjdk:8-jdk-alpine` image__
     There is no reason to continue using a more general-purpose container for Archiva. The alpine vairant saves about 200mbs of space with no drawbacks.
 
 ## `V2.2.4`
