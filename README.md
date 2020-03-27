@@ -16,7 +16,7 @@ An Apache Archiva image for simple standalone deployments.
 
 -    **Getting Help**:
 
-     Please file issues in the [github repository](https://github.com/xetus-oss/docker-archiva/) if you find a problem with this image. For general help with Archiva, use the [Offical Resources](http://archiva.apache.org/get-involved.html)
+     Please file issues in the [github repository](https://github.com/xetus-oss/docker-archiva/) if you find a problem with this image. For general help with Archiva, use the [Official Resources](http://archiva.apache.org/get-involved.html)
 
 -    **Contributing**:
 
@@ -42,7 +42,7 @@ This goal of this image is to be the easiest way to deploy a simple and reliable
 
 # Using this image
 
-There are several ways to deploy an Apache Archiva environment with this image. The simpliest is to just start it up via the command line.
+There are several ways to deploy an Apache Archiva environment with this image. The simplest is to just start it up via the command line.
 
 ## Using the `docker` command
 
@@ -115,7 +115,7 @@ If custom CA certificates are required, they can be automatically loaded into th
 The Archiva project is not dead, but it's development is (very) slow. A reasonable question to ask is "Why bother when there are other tools, like Artifactory?". We don't have a clear-cut answer for that, but here are some of the reasons you might consider Archiva.
 
 1. It's a pure non-commercial product, maintained by Apache.
-2. It's 'right-sized'. Archiva is small maven-style artifact repository that probably has all the core features you'll need and nothing else. It includes flexible repository management, LDAP Authentication support, a small UI, etc.
+2. It's 'right-sized'. Archiva is a small maven-style artifact repository that probably has all the core features you'll need and nothing else. It includes flexible repository management, LDAP Authentication support, a small UI, etc.
 3. You have an existing Archiva repository to maintain.
 4. It has this great docker image :-).
 
@@ -126,13 +126,13 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 Resource configuration improvements from our experience running Archiva in k8s. Still using Archiva `v2.2.4`.
 
 -   __Use `-XX:+UseContainerSupport`, retire `JVM_MAX_MEM`__
-    Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` enviroment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`. 
+    Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` environment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`. 
 
 -   __Set default `MALLOC_ARENA_MAX`__
     We now automatically export MALLOC_ARENA_MAX=2, unless specified by the user. Setting this option avoids the rare case of the jvm exceeding the container's memory limits.
 
 -   __Use the `openjdk:8-jdk-alpine` image__
-    There is no reason to continue using a more general-purpose container for Archiva. The alpine vairant saves about 200mbs of space with no drawbacks.
+    There is no reason to continue using a more general-purpose container for Archiva. The alpine variant saves about 200mbs of space with no drawbacks.
 
 ## `V2.2.4`
 
@@ -147,10 +147,10 @@ After running everything in docker containers for the past several years, we've 
 -   __Direct java execution (container signals are supported)__
     The previous image version tried to stick closely to the recommended Archiva standalone deployment guide. However, this used the tanukisoft wrapper which made customizations difficult, had obsolete parameters, and caused the containers to not respect stop/kill signals.
 
-    This version directly calls the java command solves all those issues.
+    This version directly calls the java command, which solves all those issues.
 
 -   __Jetty-based HTTPS support dropped, proxy support added__
-    Running a proxy server in front of this container was a always better solution than managing HTTPS within jetty. This is espeicially true since the latest jetty version included Archiva's standalone release is an obsolete version.
+    Running a proxy server in front of this container was a always better solution than managing HTTPS within jetty. This is especially true since the latest jetty version included Archiva's standalone release is an obsolete version.
 
 -  __Custom CA certificate support simplified, fixed__
    The custom CA certificate support was simplified. All custom ca certificates must now be placed in a folder and mounted into `/certs`.
@@ -187,7 +187,7 @@ To swap an existing container that used the built-in HTTPS support with one that
 * `KEYSTORE_PASS`
 * `KEYSTORE_ALIAS`
 
-For a simple example of how to setup an `nginx` proxy container for HTTPS support, see the [docker-compose.ngnix-https.yaml](docker-compose.ngnix-https.yaml) file.
+For a simple example of how to set up an `nginx` proxy container for HTTPS support, see the [docker-compose.ngnix-https.yaml](docker-compose.ngnix-https.yaml) file.
 
 ##### If you manually managed the jetty configuration
 
