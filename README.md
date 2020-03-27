@@ -131,6 +131,9 @@ Resource configuration improvements from our experience running Archiva in k8s. 
 -   _Set default `MALLOC_ARENA_MAX`_
     We now automatically export MALLOC_ARENA_MAX=2, unless specified by the user. Setting this option avoids the rare case of the jvm exceeding the container's memory limits.
 
+-   _Use the `openjdk:8-jdk-alpine` image_
+    There is no reason to continue using a more general-purpose container for Archiva. The alpine vairant saves about 200mbs of space with no drawbacks.
+
 ## `V2.2.4`
 
 Support for [Archiva 2.2.4](http://archiva.apache.org/docs/2.2.4/release-notes.html), which is a minor patch release to `2.2.3`. `V2` has been updated to point to `v2.2.4`.
