@@ -11,9 +11,15 @@ then
   echo "WARNING: SMTP_HOST not set, Archiva cannot send emails!" > /dev/stderr
 fi
 
-JVM_MAX_MEM=${JVM_MAX_MEM:-512}
+if [ -e $JVM_MAX_MEM ]
+then
+  echo "WARNING: JVM_MAX_MEM has been depreciated and is no longer used!"
+fi
+
 DB_TYPE=${DB_TYPE:-derby}
 JETTY_CONFIG_PATH=${JETTY_CONFIG_PATH:-/tmp/jetty.xml}
+# A preventative measure to avoid OOM errors
+MALLOC_ARENA_MAX=${MALLOC_ARENA_MAX:-2}
 
 #
 # Initialize the volume data directories
@@ -97,8 +103,7 @@ JVM_OPTS=(
   "-Djava.io.tmpdir=${ARCHIVA_BASE}/temp"
   "-DAsyncLoggerConfig.WaitStrategy=Block"
   "-Darchiva.repositorySessionFactory.id=jcr"
-  "-Xmx${JVM_MAX_MEM}m"
-  "-Xms${JVM_MAX_MEM}m"
+  "-XX:+UseContainerSupport"
 )
 
 #
