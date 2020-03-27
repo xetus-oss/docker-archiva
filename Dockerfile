@@ -1,26 +1,26 @@
-FROM openjdk:8
+FROM openjdk:8-jdk-alpine
 MAINTAINER Xetus OSS <xetusoss@xetus.com>
 
 # Add the archiva user and group with a specific UID/GUI to ensure
-RUN groupadd --gid 1000 archiva && useradd --gid 1000 -g archiva archiva
+RUN addgroup --gid 1000 archiva &&\
+	adduser --system -u 1000 -G archiva archiva &&\
+	apk add bash curl
 
 # Set archiva-base as the root directory we will symlink out of.
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
 
-#
-# Capture the external resources in two a layers.
-# 
-ADD resource-retriever.sh /tmp/resource-retriever.sh
-RUN chmod +x /tmp/resource-retriever.sh &&\
-  /tmp/resource-retriever.sh &&\
-  rm /tmp/resource-retriever.sh
 
-#
-# Perform all setup actions
-#
+# Add local scripts
 ADD files /tmp
-RUN chmod a+x /tmp/setup.sh && /tmp/setup.sh && rm /tmp/setup.sh
+
+# Perform most initialization actions in this layer
+RUN chmod +x /tmp/resource-retriever.sh &&\
+	/tmp/resource-retriever.sh &&\
+	rm /tmp/resource-retriever.sh &&\
+	chmod +x /tmp/setup.sh &&\
+	/tmp/setup.sh &&\
+	rm /tmp/setup.sh
 
 # Standard web ports exposted
 EXPOSE 8080/tcp

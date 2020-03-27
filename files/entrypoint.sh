@@ -77,13 +77,13 @@ then
     # First, delete the entry, if it exsits
     set +e
     keytool -delete -alias "$CERT_ALIAS"\
-       -keystore /usr/local/openjdk-8/jre/lib/security/cacerts\
+       -keystore /etc/ssl/certs/java/cacerts\
        -storepass changeit\
        -noprompt > /dev/null 2>&1
     set -e
 
     keytool -import -trustcacerts -alias "$CERT_ALIAS"\
-      -keystore /usr/local/openjdk-8/jre/lib/security/cacerts\
+      -keystore /etc/ssl/certs/java/cacerts\
       -file "$certfile"\
       -storepass changeit\
       -noprompt
