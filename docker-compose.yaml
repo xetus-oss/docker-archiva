@@ -1,4 +1,4 @@
-version: '3.4'
+version: '2.4'
 services:
   #
   # The primary archiva service
@@ -16,7 +16,9 @@ services:
     environment:
       SMTP_HOST: smtp
       SMTP_PORT: 1025
-  #
+    cpus: 2.0
+    mem_limit: 512m
+    #
   # Used for validating mail is sent as expected
   #
   smtp:

@@ -1,4 +1,4 @@
-version: '3.4'
+version: '2.4'
 services:
   #
   # The primary archiva service
@@ -15,6 +15,8 @@ services:
       - ./cacerts-test:/certs
     networks:
       - container
+    cpus: 2.0
+    mem_limit: 512m
 
 networks:
   container:

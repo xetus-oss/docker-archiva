@@ -8,7 +8,7 @@ An Apache Archiva image for simple standalone deployments.
 
 | Tag                                                                                        | Description                           |
 |--------------------------------------------------------------------------------------------|---------------------------------------|
-|[`v2`,`v2.2.4`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
+|[`v2`,`v2.2.4-1`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile) | Tracks the latest version of Archiva  |
 |[`v2-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)    | Tracks v2 snapshot builds for Archiva |
 |[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
@@ -98,9 +98,9 @@ The archiva user database can be stored in `mysql` instead of `derby` (the defau
 
 See the [docker-compose.mysql.yaml](docker-compose.mysql.yaml) for a complete example of using MySQL.
 
-## `JVM_MAX_MEM`, `JVM_EXTRA_OPTS`
+## `JVM_EXTRA_OPTS`, `MALLOC_ARENA_MAX`
 
-These properties allow fine-tuned control over the JVM environment that archiva runs in. Unless you have specific needs, neither of these need to set.
+Allow fine-tuned control over the JVM environment that archiva runs in, or set the MALLOC_ARENA_MAX. Unless you have specific needs, neither of these need to be set.
 
 ## `JETTY_CONFIG_PATH`
 
@@ -120,6 +120,19 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 4. It has this great docker image :-).
 
 # Change Log
+
+## `V2.2.4-1`
+
+Resource configuration improvements from our experience running Archiva in k8s. Still using Archiva `v2.2.4`.
+
+-   __Use `-XX:+UseContainerSupport`, retire `JVM_MAX_MEM`__
+    Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` enviroment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`. 
+
+-   __Set default `MALLOC_ARENA_MAX`__
+    We now automatically export MALLOC_ARENA_MAX=2, unless specified by the user. Setting this option avoids the rare case of the jvm exceeding the container's memory limits.
+
+-   __Use the `openjdk:8-jdk-alpine` image__
+    There is no reason to continue using a more general-purpose container for Archiva. The alpine vairant saves about 200mbs of space with no drawbacks.
 
 ## `V2.2.4`
 
