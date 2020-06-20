@@ -137,8 +137,9 @@ then
 
   if (( NGINX_TEST_PASSED == 0 ))
   then
-    RESPONSE_CODE=$(curl -m 1 -k -s -o /dev/null -w '%{http_code}'\
-      https://localhost:${HTTPS_PORT:-8443})
+    RESPONSE_CODE=$($BASE_COMPOSE exec archiva \
+      curl -m 1 -k -s -o /dev/null -w '%{http_code}' \
+      https://nginx:${HTTPS_PORT:-8443})
     if (( RESPONSE_CODE == 200 ))
     then
       printMessage "External request to proxy succeeded"
@@ -195,7 +196,7 @@ then
     CERT_LIST="$(docker-compose exec archiva keytool \
       -list -v -storepass 'changeit'\
       --noprompt \
-      -keystore /usr/local/openjdk-8/jre/lib/security/cacerts)"
+      -keystore /etc/ssl/certs/java/cacerts)"
     if (( $? != 0 ))
     then
       printError "Could not list installed cacerts, cannot complete test"

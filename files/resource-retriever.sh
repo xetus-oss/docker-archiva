@@ -8,7 +8,7 @@ set -eo pipefail
 BUILD_SNAPSHOT_RELEASE=${BUILD_SNAPSHOT_RELEASE:-false}
 if [ $BUILD_SNAPSHOT_RELEASE = true ]
 then
-  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/2.2.5-SNAPSHOT/"
+  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/2.2.6-SNAPSHOT/"
 
   BUILD_NO=$(curl -s "${ARCHIVA_SNAPSHOTS_BASE}maven-metadata.xml" |\
     grep buildNumber | cut -f2 -d'>' | cut -f1 -d'<')
@@ -27,14 +27,14 @@ fi
 #
 # Archiva binary parameters
 #
-ARCHIVA_RELEASE_URL=${ARCHIVA_RELEASE_URL:-https://www-us.apache.org/dist/archiva/2.2.4/binaries/apache-archiva-2.2.4-bin.tar.gz}
-ARCHIVA_RELEASE_MD5SUM=${ARCHIVA_RELEASE_MD5SUM:-597aeb9f42e634ae58256fb99997040f}
+ARCHIVA_RELEASE_URL=${ARCHIVA_RELEASE_URL:-https://downloads.apache.org/archiva/2.2.5/binaries/apache-archiva-2.2.5-bin.tar.gz}
+ARCHIVA_RELEASE_MD5SUM=${ARCHIVA_RELEASE_MD5SUM:-e27373f465bf6d1c00c044c0474a27e9}
 
 #
 # MySQL connector parameters
 #
-MYSQL_CONNECTOR_URL=https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.12/mysql-connector-java-8.0.12.jar
-MYSQL_CONNECTOR_MD5SUM=88766727e5e434ceb94315b0dae0e4b4
+MYSQL_CONNECTOR_URL=https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.20/mysql-connector-java-8.0.20.jar
+MYSQL_CONNECTOR_MD5SUM=48d69b9a82cbe275af9e45cb80f6b15f
 
 #
 # Download and verify the archiva tarball. Then extract
