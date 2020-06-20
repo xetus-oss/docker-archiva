@@ -8,7 +8,7 @@ An Apache Archiva image for simple standalone deployments.
 
 | Tag                                                                                        | Description                           |
 |--------------------------------------------------------------------------------------------|---------------------------------------|
-|[`v2`,`v2.2.4-1`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile) | Tracks the latest version of Archiva  |
+|[`v2`,`v2.2.5`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
 |[`v2-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)    | Tracks v2 snapshot builds for Archiva |
 |[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
@@ -120,6 +120,10 @@ The Archiva project is not dead, but it's development is (very) slow. A reasonab
 4. It has this great docker image :-).
 
 # Change Log
+
+## `V2.2.5`
+
+Updated to Archiva `v2.2.5` which includes a fix for [CVE-2020-9495](https://www.mail-archive.com/dev@archiva.apache.org/msg02821.html).
 
 ## `V2.2.4-1`
 
