@@ -9,5 +9,5 @@ script:
 #
 # Push from the docker-ci system after success
 #
-after_success:
+deploy:
   - ./travis-ci-push.sh
