@@ -10,9 +10,10 @@ script:
 # Push from the docker-ci system after success
 #
 after_success:
-  - >
-    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    REPO=xetusoss/archiva
+  - 
+    export REPO=xetusoss/archiva;
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
+    
     if [ -n "$TRAVIS_TAG" ]
     then
       export TAG=${REPO}:${TRAVIS_TAG}

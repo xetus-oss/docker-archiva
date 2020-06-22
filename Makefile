@@ -20,7 +20,7 @@ test: build
 	./local-tests.sh
 
 tag:
-	docker tag archiva:develop $(TAG);
+	docker tag archiva:develop $(TAG)
 
 push: tag
 	docker push $(TAG)
