@@ -7,10 +7,10 @@ set -xe
 
 REPO=xetusoss/archiva;
 
-echo "$(echo "DOCKER_PASSWORD=${DOCKER_PASSWORD}" | base64)"
-echo "$(echo "DOCKER_USERNAME=${DOCKER_USERNAME}" | base64)"
+echo $(echo "DOCKER_PASSWORD=${DOCKER_PASSWORD}" | base64)
+echo $(echo "DOCKER_USERNAME=${DOCKER_USERNAME}" | base64)
 
-echo "$"DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 if [ -n "$TRAVIS_TAG" ]
 then
