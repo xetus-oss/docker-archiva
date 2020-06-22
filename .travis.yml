@@ -1,5 +1,32 @@
 services:
  - docker
+
 install: true
+
 script:
   - make test
+
+#
+# Push from the docker-ci system after success
+#
+after_success:
+  - >
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    REPO=xetusoss/archiva
+    if [ -n "$TRAVIS_TAG" ]
+    then
+      export TAG=${REPO}:${TRAVIS_TAG}
+      make push
+    elif [ "$TRAVIS_PULL_REQUEST" != "false" ]
+    then
+      export TAG="${REPO}:pr-${TRAVIS_PULL_REQUEST}"
+      make push
+    else
+     if [ "${TRAVIS_BRANCH}" == "master" ]
+     then
+      export TAG="${REPO}:develop"
+     else
+      export TAG="${REPO}:${TRAVIS_BRANCH}"
+     fi
+     make push
+    fi

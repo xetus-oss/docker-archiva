@@ -187,7 +187,7 @@ fi
 if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "cacerts" ]
 then
   TESTNAME="Custom CA Certs"
-  BASE_COMPOSE="docker-compose -f docker-compose.cacerts.yaml"
+  BASE_COMPOSE="docker-compose -f docker-compose.yaml -f docker-compose.cacerts.yaml"
   basicComposeScenarioHeathCheckTest
   CUSTOM_CA_CERTS_TEST_PASSED=$?
   if (( $CUSTOM_CA_CERTS_TEST_PASSED == 0 ))

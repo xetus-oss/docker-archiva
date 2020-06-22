@@ -9,7 +9,7 @@ RUN addgroup --gid 1000 archiva &&\
 # Set archiva-base as the root directory we will symlink out of.
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
-
+ARG BUILD_SNAPSHOT_RELEASE
 
 # Add local scripts
 ADD files /tmp
