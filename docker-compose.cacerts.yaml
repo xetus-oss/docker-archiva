@@ -4,19 +4,5 @@ services:
   # The primary archiva service
   #
   archiva:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      cache_from: 
-        - xetusoss/archiva:latest
-    image: xetusoss/archiva:${TAG}
-    ports: [ "8080:8080" ]
     volumes:
       - ./cacerts-test:/certs
-    networks:
-      - container
-    cpus: 2.0
-    mem_limit: 512m
-
-networks:
-  container:
