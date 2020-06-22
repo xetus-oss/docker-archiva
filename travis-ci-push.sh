@@ -3,10 +3,11 @@
 #
 # A tiny shell script to push do dockerhub from a travis-ci build.
 #
+set -x
 
 REPO=xetusoss/archiva;
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 if [ -n "$TRAVIS_TAG" ]
 then
