@@ -10,4 +10,9 @@ script:
 # Push from the docker-ci system after success
 #
 deploy:
-  - ./travis-ci-push.sh
+  provider: script
+  script:
+    - ./travis-ci-push.sh
+  on:
+    all_branches: true
+    tags: true
