@@ -15,4 +15,3 @@ deploy:
     - ./travis-ci-push.sh
   on:
     all_branches: true
-    tags: true
