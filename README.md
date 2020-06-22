@@ -2,8 +2,8 @@
 
 An Apache Archiva image for simple standalone deployments.
 
-[![Build Status (Stable)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2)](https://travis-ci.org/xetus-oss/docker-archiva)
-[![Build Status (v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva)
+* __Build Status (Stable)__: [![Build Status (Stable)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2)](https://travis-ci.org/xetus-oss/docker-archiva)
+* __Build Status (v2-snapshot)__: [![Build Status (v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva)
 
 ---
 
