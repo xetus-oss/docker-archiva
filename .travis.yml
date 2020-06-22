@@ -1,5 +1,18 @@
 services:
  - docker
+
 install: true
+
 script:
   - make test
+
+#
+# Push from the docker-ci system after success
+#
+deploy:
+  provider: script
+  script:
+    - ./travis-ci-push.sh
+  on:
+    all_branches: true
+    condition: [[ -n "$DOCKER_USERNAME" && -n "$DOCKER_PASSWORD" ]]

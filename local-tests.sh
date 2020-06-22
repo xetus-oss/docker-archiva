@@ -95,14 +95,6 @@ function basicComposeScenarioHeathCheckTest(){
   return 0
 }
 
-if [ -z "$TAG" ]
-then
-  echo "TAG not specified, exiting"
-  exit 1
-fi
-
-export TAG
-
 trap interrupted SIGINT SIGQUIT SIGHUP SIGABRT SIGKILL
 
 #main()
@@ -187,7 +179,7 @@ fi
 if [ -z "$TEST_ONLY" ] || [ "$TEST_ONLY" == "cacerts" ]
 then
   TESTNAME="Custom CA Certs"
-  BASE_COMPOSE="docker-compose -f docker-compose.cacerts.yaml"
+  BASE_COMPOSE="docker-compose -f docker-compose.yaml -f docker-compose.cacerts.yaml"
   basicComposeScenarioHeathCheckTest
   CUSTOM_CA_CERTS_TEST_PASSED=$?
   if (( $CUSTOM_CA_CERTS_TEST_PASSED == 0 ))

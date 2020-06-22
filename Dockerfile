@@ -9,21 +9,7 @@ RUN addgroup --gid 1000 archiva &&\
 # Set archiva-base as the root directory we will symlink out of.
 ENV ARCHIVA_HOME /archiva
 ENV ARCHIVA_BASE /archiva-data
-
-# Used to tell the resource-retreiver.sh script
-# to build the most recent snapshot.
-#
-# Only specified in the v2-snapshot branch, and needed
-# because we use docker cloud builds.
-ENV BUILD_SNAPSHOT_RELEASE true
-
-#
-# Capture the external resources in two a layers.
-# 
-ADD files/resource-retriever.sh /tmp/resource-retriever.sh
-RUN chmod +x /tmp/resource-retriever.sh &&\
-  /tmp/resource-retriever.sh &&\
-  rm /tmp/resource-retriever.sh
+ARG BUILD_SNAPSHOT_RELEASE
 
 # Add local scripts
 ADD files /tmp

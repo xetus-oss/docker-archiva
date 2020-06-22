@@ -8,8 +8,12 @@ services:
       context: .
       dockerfile: Dockerfile
       cache_from: 
+        - openjdk:8-jdk-alpine
         - xetusoss/archiva:latest
-    image: xetusoss/archiva:${TAG}
+        - xetusoss/archiva:v2
+      args:
+        BUILD_SNAPSHOT_RELEASE: ${BUILD_SNAPSHOT_RELEASE}
+    image: archiva:develop
     ports: [ "8080:8080" ]
     networks:
       - container
