@@ -95,14 +95,6 @@ function basicComposeScenarioHeathCheckTest(){
   return 0
 }
 
-if [ -z "$TAG" ]
-then
-  echo "TAG not specified, exiting"
-  exit 1
-fi
-
-export TAG
-
 trap interrupted SIGINT SIGQUIT SIGHUP SIGABRT SIGKILL
 
 #main()
