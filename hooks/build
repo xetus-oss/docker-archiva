@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#
+# Override the build arguments on the v2-snapshot branch
+#
+# See https://docs.docker.com/docker-hub/builds/advanced/#build-hook-examples
+#
+set -xe
+
+BUILD_SNAPSHOT_RELEASE=false
+if [ "$SOURCE_BRANCH" == "v2-snapshot" ]
+then
+	BUILD_SNAPSHOT_RELEASE=true
+fi
+
+docker build --build-arg BUILD_SNAPSHOT_RELEASE=${BUILD_SNAPSHOT_RELEASE} -t $IMAGE_NAME .
