@@ -12,3 +12,4 @@ deploy:
     - ./travis-ci-trigger.sh
   on:
     all_branches: true
+    condition: $TRAVIS_PULL_REQUEST == false
