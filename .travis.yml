@@ -9,6 +9,6 @@ script:
 deploy:
   provider: script
   script:
-    - curl -X POST https://hub.docker.com/api/build/v1/source/7bd793a9-4dcd-42f8-bd7f-0e9053666cf8/trigger/0e5df6c1-aa54-497a-b0e2-1b68621be630/call/
+    - ./travis-ci-trigger.sh
   on:
     all_branches: true
