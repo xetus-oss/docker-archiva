@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# A tiny shell script to push do dockerhub from a travis-ci build.
+# A tiny shell script to trigger a dockerhub build during a travis-ci run.
 #
 set -xe
 
