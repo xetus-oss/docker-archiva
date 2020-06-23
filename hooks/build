@@ -8,7 +8,7 @@
 set -xe
 
 BUILD_SNAPSHOT_RELEASE=false
-if [ "$SOURCE_BRANCH" == "v2-snapshot" ]
+if [ "$SOURCE_BRANCH" == "dockerhub-ci-builds" ]
 then
 	BUILD_SNAPSHOT_RELEASE=true
 fi
