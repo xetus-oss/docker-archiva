@@ -6,13 +6,9 @@ install: true
 script:
   - make test
 
-#
-# Push from the docker-ci system after success
-#
 deploy:
   provider: script
   script:
-    - ./travis-ci-push.sh
+    - curl -X POST https://hub.docker.com/api/build/v1/source/7bd793a9-4dcd-42f8-bd7f-0e9053666cf8/trigger/0e5df6c1-aa54-497a-b0e2-1b68621be630/call/
   on:
     all_branches: true
-    condition: [[ -n "$DOCKER_USERNAME" && -n "$DOCKER_PASSWORD" ]]
