@@ -2,9 +2,9 @@
 
 An Apache Archiva image for simple standalone deployments.
 
-* __Docker Hub__: ![Docker Pulls](https://img.shields.io/docker/pulls/xetusoss/archiva.svg?label=pulls&logo=docker)
-* __Build Status (Stable)__: [![Build Status (Stable)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2)](https://travis-ci.org/xetus-oss/docker-archiva)
-* __Build Status (v2-snapshot)__: [![Build Status (v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva.svg?branch=v2-snapshot)](https://travis-ci.org/xetus-oss/docker-archiva)
+[![](https://img.shields.io/docker/pulls/xetusoss/archiva.svg?label=pulls&logo=docker)](https://hub.docker.com/r/xetusoss/archiva/)
+[![](https://img.shields.io/travis/xetus-oss/docker-archiva?label=Master%20Build)](https://travis-ci.org/xetus-oss/docker-archiva)
+[![](https://img.shields.io/travis/xetus-oss/docker-archiva/v2-snapshot?label=v2-snapshot%20Build)](https://travis-ci.org/xetus-oss/docker-archiva)
 
 ---
 
