@@ -12,7 +12,7 @@ services:
         - xetusoss/archiva:latest
         - xetusoss/archiva:v2
       args:
-        BUILD_SNAPSHOT_RELEASE: ${BUILD_SNAPSHOT_RELEASE}
+        BUILD_SNAPSHOT_RELEASE: ${BUILD_SNAPSHOT_RELEASE:-false}
     image: archiva:develop
     ports: [ "8080:8080" ]
     networks:
