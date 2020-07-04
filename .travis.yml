@@ -3,6 +3,9 @@ services:
 
 install: true
 
+before_script:
+  - export BUILD_SNAPSHOT_RELEASE=$([ $TRAVIS_BRANCH = "v2-snapshot" ] && echo "true" || echo "false")
+
 script:
   - make test
 
