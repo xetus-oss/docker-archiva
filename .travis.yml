@@ -5,7 +5,7 @@ install: true
 
 before_script:
   - export BUILD_SNAPSHOT_RELEASE=$([ $TRAVIS_BRANCH = "v2-snapshot" ] && echo "true" || echo "false")
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 script:
   - make test
