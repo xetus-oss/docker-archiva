@@ -1,5 +1,10 @@
 # Change Log
 
+## `V2.2.6`
+
+Updated to Archiva `v2.2.6` which includes a fix for [CVE-2021-44228](https://issues.apache.org/jira/projects/MRM/issues/MRM-2023?filter=allissues).
+
+
 ## `V2.2.5`
 
 Updated to Archiva `v2.2.5` which includes a fix for [CVE-2020-9495](https://www.mail-archive.com/dev@archiva.apache.org/msg02821.html).
