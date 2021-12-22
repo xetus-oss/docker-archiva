@@ -1,5 +1,9 @@
 # Change Log
 
+## `V2.2.7`
+
+Updated to Archiva `v2.2.7` which includes more log4j security fixes ([CVE-2021-45105](https://nvd.nist.gov/vuln/detail/CVE-2021-45105)). See [archiva release notes](https://archiva.apache.org/docs/2.2.7/release-notes.html).
+
 ## `V2.2.6`
 
 Updated to Archiva `v2.2.6` which includes a fix for [CVE-2021-44228](https://issues.apache.org/jira/projects/MRM/issues/MRM-2023?filter=allissues).
