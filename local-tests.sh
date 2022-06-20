@@ -188,7 +188,7 @@ then
     CERT_LIST="$(docker-compose exec archiva keytool \
       -list -v -storepass 'changeit'\
       --noprompt \
-      -keystore /etc/ssl/certs/java/cacerts)"
+      -keystore /opt/java/openjdk/jre/lib/security/cacerts)"
     if (( $? != 0 ))
     then
       printError "Could not list installed cacerts, cannot complete test"
