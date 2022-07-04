@@ -2,7 +2,7 @@
 
 ## `V2.2.8-1`
 
-Swap the openjdk 8 alpine base image the Eclipse Temurin one. See [PR#34](https://en.wikipedia.org/wiki/Adoptium) for more information. Thanks @mattmatician!
+Swap the openjdk 8 alpine base image the Eclipse Temurin one. See [PR#34](https://github.com/xetus-oss/docker-archiva/pull/34) for more information. Thanks @mattmatician!
 
 ## `V2.2.8`
 
