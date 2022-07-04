@@ -1,5 +1,9 @@
 # Change Log
 
+## `V2.2.8-1`
+
+Swap the openjdk 8 alpine base image the Eclipse Temurin one. See [PR#34](https://en.wikipedia.org/wiki/Adoptium) for more information. Thanks @mattmatician!
+
 ## `V2.2.8`
 
 Updated to Archiva `v2.2.8`, a security patch for ([CVE-2022-29405](https://nvd.nist.gov/vuln/detail/CVE-2022-29405)). See [archiva release notes](https://archiva.apache.org/docs/2.2.8/release-notes.html).
