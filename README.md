@@ -12,7 +12,7 @@ An Apache Archiva image for simple standalone deployments.
 
 | Tag                                                                                        | Description                           |
 |--------------------------------------------------------------------------------------------|---------------------------------------|
-|[`v2`,`v2.2.8-1`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
+|[`v2`,`v2.2.9`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
 |[`v2-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)    | Tracks v2 snapshot builds for Archiva |
 |[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
@@ -35,7 +35,7 @@ An Apache Archiva image for simple standalone deployments.
 
 # About Apache Archiva
 
-[Apache Archiva](https://archiva.apache.org/) is maven-compatible artifact repository that is reasonably configurable and quite stable. 
+[Apache Archiva](https://archiva.apache.org/) is maven-compatible artifact repository that is reasonably configurable and quite stable.
 
 # About `xetusoss/archiva`
 
@@ -59,7 +59,7 @@ docker run --name archiva -p 8080:8080 xetusoss/archiva
 
 ## Deploying with `docker-compose`
 
-The example below shows how to deploy archiva with a separate data volume using docker-compose. 
+The example below shows how to deploy archiva with a separate data volume using docker-compose.
 
 ```yaml
 version: '3.4'
@@ -111,7 +111,7 @@ Allow fine-tuned control over the JVM environment that archiva runs in, or set t
 
 ## `JETTY_CONFIG_PATH`
 
-If the container-managed `jetty.xml` file is not flexible enough for your deployment scenario, the `JETTY_CONFIG_PATH` environment variable can be used to manually specify a configuration file. 
+If the container-managed `jetty.xml` file is not flexible enough for your deployment scenario, the `JETTY_CONFIG_PATH` environment variable can be used to manually specify a configuration file.
 
 # Adding CA certificates
 

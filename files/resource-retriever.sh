@@ -8,7 +8,7 @@ set -eo pipefail
 BUILD_SNAPSHOT_RELEASE=${BUILD_SNAPSHOT_RELEASE:-false}
 if [ $BUILD_SNAPSHOT_RELEASE = true ]
 then
-  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/2.2.6-SNAPSHOT/"
+  ARCHIVA_SNAPSHOTS_BASE="https://archiva-repository.apache.org/archiva/repository/snapshots/org/apache/archiva/archiva-jetty/3.0.0-SNAPSHOT/"
   BUILD_NO=$(curl -s "${ARCHIVA_SNAPSHOTS_BASE}maven-metadata.xml" |\
     grep buildNumber | cut -f2 -d'>' | cut -f1 -d'<')
 
@@ -21,11 +21,11 @@ then
 
   ARCHIVA_RELEASE_URL=${ARCHIVA_SNAPSHOTS_BASE}${FILE_NAME}
   ARCHIVA_RELEASE_MD5SUM=${MD5SUM}
-else 
+else
   #
   # Archiva binary parameters
   #
-  ARCHIVA_RELEASE_VERSION=2.2.8
+  ARCHIVA_RELEASE_VERSION=2.2.9
   ARCHIVA_RELEASE_URL=${ARCHIVA_RELEASE_URL:-https://downloads.apache.org/archiva/${ARCHIVA_RELEASE_VERSION}/binaries/apache-archiva-${ARCHIVA_RELEASE_VERSION}-bin.tar.gz}
   ARCHIVA_RELEASE_SHA512=$(curl "${ARCHIVA_RELEASE_URL}.sha512" | cut -f1 -d' ')
 fi

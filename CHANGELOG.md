@@ -1,5 +1,11 @@
 # Change Log
 
+## `V2.2.9`
+
+Updated to Archiva `v2.2.9` which includes several security fixes. See [archiva release notes](https://archiva.apache.org/docs/2.2.9/release-notes.html).
+
+Updated snapshot to 3.0.0.
+
 ## `V2.2.8-1`
 
 Swap the openjdk 8 alpine base image the Eclipse Temurin one. See [PR#34](https://github.com/xetus-oss/docker-archiva/pull/34) for more information. Thanks @mattmatician!
@@ -25,7 +31,7 @@ Updated to Archiva `v2.2.5` which includes a fix for [CVE-2020-9495](https://www
 Resource configuration improvements from our experience running Archiva in k8s. Still using Archiva `v2.2.4`.
 
 -   __Use `-XX:+UseContainerSupport`, retire `JVM_MAX_MEM`__
-    Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` environment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`. 
+    Java 8u191 includes [improved support for docker containers](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8146115). This allows the java process to respect the container limits set by `cgroups`. Before this feature, the JVM would allocate resources for itself based on the host's total resources instead of the resources allocated to the container. The only way to avoid the situation was to set a series of related and complicated JVM options. With the improved container support, simply setting the container's resource limits is all that's needed. Due to this, we also retired support for the `JVM_MAX_MEM` environment variable. If specific tuning is required, users should use `JVM_EXTRA_OPTS`.
 
 -   __Set default `MALLOC_ARENA_MAX`__
     We now automatically export MALLOC_ARENA_MAX=2, unless specified by the user. Setting this option avoids the rare case of the jvm exceeding the container's memory limits.
