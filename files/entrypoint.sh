@@ -47,8 +47,9 @@ then
   JETTY_TEMPLATE_ROOT="${TEMPLATE_ROOT}/jetty-conf/"
   if [ "$DB_TYPE" == "mysql" ]
   then
+     MYSQL_JDBC_PARAMS=${MYSQL_JDBC_PARAMS:-"useSSL=false&allowPublicKeyRetrieval=true"}
      DB_FRAGMENT_FILE=${JETTY_TEMPLATE_ROOT}/mysql-db-fragment.xml
-     MYSQL_JDBC_URL="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
+     MYSQL_JDBC_URL="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?${MYSQL_JDBC_PARAMS}"
      echo "Using MySQL database at: $MYSQL_JDBC_URL"
   elif [ "$DB_TYPE" == "derby" ]
   then

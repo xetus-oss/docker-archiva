@@ -13,7 +13,7 @@ An Apache Archiva image for simple standalone deployments.
 | Tag                                                                                        | Description                           |
 |--------------------------------------------------------------------------------------------|---------------------------------------|
 |[`v2`,`v2.2.9`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
-|[`v2-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v2-snapshot/Dockerfile)    | Tracks v2 snapshot builds for Archiva |
+|[`v3-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v3-snapshot/Dockerfile)    | Tracks v3 snapshot builds for Archiva |
 |[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
 
@@ -99,7 +99,7 @@ It is recommended to deploy Archiva behind an HTTPS proxy. When using an HTTPS p
 
 Setting `PROXY_BASE_URL` will cause the container's entrypoint script to set all the needed java properties for Archiva to be aware of the proxy.
 
-## `DB_TYPE`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, `DB_NAME`
+## `DB_TYPE`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `MYSQL_JDBC_PARAMS`
 
 The archiva user database can be stored in `mysql` instead of `derby` (the default). These environment variables can be used to configure the auto-generated `jetty.xml` to use a MySQL datasource. They are not necessary when using the default `derby` database.
 

@@ -2,9 +2,9 @@
 
 ## `V2.2.9`
 
-Updated to Archiva `v2.2.9` which includes several security fixes. See [archiva release notes](https://archiva.apache.org/docs/2.2.9/release-notes.html).
+Updated to Archiva `v2.2.9` which includes several security fixes. See [archiva release notes](https://archiva.apache.org/docs/2.2.9/release-notes.html). 
 
-Updated snapshot to 3.0.0.
+Also added support for a new environment variable, `MYSQL_JDBC_PARAMS` (Defaults to `useSSL=false&allowPublicKeyRetrieval=true`). This was needed to preserve the previous behavior of connections when using MySQL.
 
 ## `V2.2.8-1`
 
