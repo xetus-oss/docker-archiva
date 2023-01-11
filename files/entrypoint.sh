@@ -11,11 +11,6 @@ then
   echo "WARNING: SMTP_HOST not set, Archiva cannot send emails!" > /dev/stderr
 fi
 
-if [ -e $JVM_MAX_MEM ]
-then
-  echo "WARNING: JVM_MAX_MEM has been depreciated and is no longer used!"
-fi
-
 DB_TYPE=${DB_TYPE:-derby}
 JETTY_CONFIG_PATH=${JETTY_CONFIG_PATH:-/tmp/jetty.xml}
 # A preventative measure to avoid OOM errors
@@ -78,13 +73,13 @@ then
     # First, delete the entry, if it exsits
     set +e
     keytool -delete -alias "$CERT_ALIAS"\
-       -keystore "${JAVA_HOME}/jre/lib/security/cacerts"\
+       -keystore "/opt/java/openjdk/lib/security/cacerts"\
        -storepass changeit\
        -noprompt > /dev/null 2>&1
     set -e
 
     keytool -import -trustcacerts -alias "$CERT_ALIAS"\
-      -keystore "${JAVA_HOME}/jre/lib/security/cacerts"\
+      -keystore "/opt/java/openjdk/lib/security/cacerts"\
       -file "$certfile"\
       -storepass changeit\
       -noprompt
@@ -99,11 +94,13 @@ export CLASSPATH=$(find /archiva/lib -name "*.jar"\
 
 JVM_OPTS=(
   "-Dappserver.home=."
-  "-Dappserver.base=$ARCHIVA_BASE"
+  "-Dappserver.base=${ARCHIVA_BASE}"
   "-Djetty.logs=${ARCHIVA_BASE}/logs"
-  "-Djava.io.tmpdir=${ARCHIVA_BASE}/temp"
+  "-Djava.io.tmpdir=${ARCHIVA_BASE}/tmp"
   "-DAsyncLoggerConfig.WaitStrategy=Block"
   "-Darchiva.repositorySessionFactory.id=jcr"
+  "-Darchiva.cassandra.configuration.file=${ARCHIVA_BASE}/conf/archiva-cassandra.properties"
+  "-Dorg.apache.jackrabbit.core.state.validatehierarchy=true"
   "-XX:+UseContainerSupport"
 )
 

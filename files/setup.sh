@@ -53,5 +53,5 @@ chown -R archiva:archiva $ARCHIVA_BASE $TEMPLATE_ROOT
 # Make the cacerts owned by archiva so we can add
 # certs to it, if necessary
 #
-chown archiva:archiva ${JAVA_HOME}/jre/lib/security/cacerts
-chmod u+w ${JAVA_HOME}/jre/lib/security/cacerts
+chown archiva:archiva /opt/java/openjdk/lib/security/cacerts
+chmod u+w /opt/java/openjdk/lib/security/cacerts
