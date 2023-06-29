@@ -1,5 +1,9 @@
 # Change Log
 
+## `V2.2.10`
+
+Updated to Archiva `v2.2.10`, a bugfix release [archiva release notes](https://archiva.apache.org/docs/2.2.10/release-notes.html).
+
 ## `V2.2.9`
 
 Updated to Archiva `v2.2.9` which includes several security fixes. See [archiva release notes](https://archiva.apache.org/docs/2.2.9/release-notes.html). 

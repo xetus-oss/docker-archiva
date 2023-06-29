@@ -12,7 +12,7 @@ An Apache Archiva image for simple standalone deployments.
 
 | Tag                                                                                        | Description                           |
 |--------------------------------------------------------------------------------------------|---------------------------------------|
-|[`v2`,`v2.2.9`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
+|[`v2`,`v2.2.10`, `latest`](https://github.com/xetus-oss/docker-archiva/blob/v2/Dockerfile)   | Tracks the latest version of Archiva  |
 |[`v3-snapshot`](https://github.com/xetus-oss/docker-archiva/blob/v3-snapshot/Dockerfile)    | Tracks v3 snapshot builds for Archiva |
 |[`2.2.3`,`v2-legacy`](https://github.com/xetus-oss/docker-archiva/blob/v2-legacy/Dockerfile)| Legacy versions of this image         |
 
