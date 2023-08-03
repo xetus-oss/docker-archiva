@@ -3,7 +3,7 @@ MAINTAINER Xetus OSS <xetusoss@xetus.com>
 
 # Add the archiva user and group with a specific UID/GUI to ensure
 RUN addgroup --gid 1000 archiva &&\
-	adduser --system -u 1000 -G archiva archiva &&\
+	adduser --system -u 1000 --gid 1000 archiva &&\
  	apt update &&\
 	apt install bash curl
 
