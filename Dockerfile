@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jdk
+FROM eclipse-temurin:8-jdk
 MAINTAINER Xetus OSS <xetusoss@xetus.com>
 
 # Add the archiva user and group with a specific UID/GUI to ensure
