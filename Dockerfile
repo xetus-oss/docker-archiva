@@ -1,10 +1,11 @@
-FROM eclipse-temurin:8-jdk-alpine
+FROM eclipse-temurin:11-jdk
 MAINTAINER Xetus OSS <xetusoss@xetus.com>
 
 # Add the archiva user and group with a specific UID/GUI to ensure
 RUN addgroup --gid 1000 archiva &&\
 	adduser --system -u 1000 -G archiva archiva &&\
-	apk add bash curl
+ 	apt update &&\
+	apt install bash curl
 
 # Set archiva-base as the root directory we will symlink out of.
 ENV ARCHIVA_HOME /archiva
